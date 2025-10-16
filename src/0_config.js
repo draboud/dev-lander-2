@@ -1,0 +1,12 @@
+export const BLACKOUT_STANDARD = 50;
+export const BLACKOUT_EXTRA = 150;
+export const BLACKOUT_INIT = 2500;
+export const DELAY_BEFORE_FEATURE_TEXT = 1000;
+export const PAUSE_AFTER_FEATURE_END = 1500;
+export const NO_OF_INSTRUCTION_VIDS = 4;
+export const PAUSE_BETWEEN_INSTRUCTION_VIDS = 1000;
+export const INSTRUCTION_VIDS_LOOPING = true;
+export const COMP_BTNS_START_RANGE_A = 0;
+export const COMP_BTNS_END_RANGE_A = 5;
+export const COMP_BTNS_START_RANGE_B = 6;
+export const COMP_BTNS_END_RANGE_B = 11;
