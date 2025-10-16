@@ -7,6 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "serve",
     "build": "esbuild src/main.js --bundle --outfile=dist/main.js --watch",
+    "buildScript": "esbuild src/script.js --bundle --outfile=dist/script.js --watch",
+    "buildChatScript": "esbuild src/chatScript.js --bundle --outfile=dist/chatScript.js --watch",
     "build-by-file": "node 0_builder.js"
   },
   "author": "",

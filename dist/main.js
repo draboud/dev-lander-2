@@ -474,7 +474,7 @@
   var navigation_default = new navigation();
 
   // src/main.js
-  console.log("main");
+  console.log("play-button-kill");
   var MainAllCtrlBtnsMouseEnter = function(ctrlBtn) {
     ctrlBtn.classList.add("hovered");
   };
