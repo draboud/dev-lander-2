@@ -77,8 +77,6 @@ class navigation {
         );
         break;
       case "instructions":
-        clearTimeout(instructions.instructionVidTimer);
-        instructions.instructionVidTimer = null;
         global.DeactivateActivateSectionImage("main");
         global.DeactivateActivateCurrentCtrlButtons("instructions");
         break;

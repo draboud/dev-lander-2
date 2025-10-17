@@ -8,6 +8,7 @@ import {
   DELAY_BEFORE_FEATURE_TEXT,
   INSTRUCTION_VIDS_LOOPING,
   NO_OF_INSTRUCTION_VIDS,
+  PAUSE_AFTER_FEATURE_END,
   PAUSE_BETWEEN_INSTRUCTION_VIDS,
 } from "./0_config";
 import * as global from "./0_globalVarsAndFunctions";
@@ -35,7 +36,12 @@ const MainAllNavLinks = function (navLink) {
       .querySelector(".comp-data-body-wrap")
       .scroll(0, 0);
   navigation.ResetSectionSpecial();
+  clearTimeout(features.featureTextTimer);
   clearTimeout(features.featureVidTimer);
+  clearTimeout(instructions.instructionVidTimer);
+  features.featureTextTimer = null;
+  features.featureVidTimer = null;
+  instructions.instructionVidTimer = null;
   global.pauseWrapper.style.pointerEvents = "none";
   global.pauseWrapper.classList.remove("active");
   global.SetPauseFlag(false);
@@ -49,9 +55,18 @@ const MainAllNavLinks = function (navLink) {
 //.......................................................................
 //FEATURES
 const MainFeaturesVidsEnds = function () {
-  features.ResetToFeaturesMainScreen();
+  features.featureVidTimer = setTimeout(function () {
+    global.FlashBlackout(BLACKOUT_STANDARD);
+    global.DeactivateActivateSectionImage();
+    global.DeactivateActivateSectionText("main");
+    global.ActivateSectionVideo("main");
+    global.PlaySectionVideo("main");
+    global.DeactivateActivateCurrentCtrlButtons("features", false);
+  }, PAUSE_AFTER_FEATURE_END);
 };
 const MainCtrlBtnsFeatures = function () {
+  clearTimeout(features.featureTextTimer);
+  clearTimeout(features.featureVidTimer);
   global.FlashBlackout(BLACKOUT_STANDARD);
   global.DeactivateActivateSectionText();
   global.DeactivateActivateSectionImage();
@@ -59,7 +74,7 @@ const MainCtrlBtnsFeatures = function () {
   global.ActivateSectionVideo("features", global.ctrlBtnIndex);
   global.PlaySectionVideo("features", global.ctrlBtnIndex);
   global.DeactivateActivateCurrentCtrlButtons("features", global.ctrlBtnIndex);
-  features.featureVidTimer = setTimeout(function () {
+  features.featureTextTimer = setTimeout(function () {
     global.DeactivateActivateSectionText("feature", global.ctrlBtnIndex);
   }, DELAY_BEFORE_FEATURE_TEXT);
 };

@@ -13,6 +13,7 @@ class features {
   allVidsFeatures = global.sectionFeatures.querySelectorAll(".vid");
   allCtrlBtnsFeatures =
     global.ctrlBtnWrapper.querySelectorAll(".ctrl-btn.features");
+  featureTextTimer;
   featureVidTimer;
   //............................................................
   //............................................................
@@ -37,16 +38,6 @@ class features {
       );
       handler();
     });
-  };
-  ResetToFeaturesMainScreen = function () {
-    setTimeout(function () {
-      global.FlashBlackout(BLACKOUT_STANDARD);
-      global.DeactivateActivateSectionImage();
-      global.DeactivateActivateSectionText("main");
-      global.ActivateSectionVideo("main");
-      global.PlaySectionVideo("main");
-      global.DeactivateActivateCurrentCtrlButtons("features", false);
-    }, PAUSE_AFTER_FEATURE_END);
   };
 }
 export default new features();
