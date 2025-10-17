@@ -25,6 +25,15 @@
     ".nav_menu_link.instructions"
   );
   var allNavLinks = document.querySelectorAll(".nav_menu_link");
+  var navButtonMobile = document.querySelector(".nav_button");
+  var navLinkDropdown = document.querySelector(
+    ".nav_menu_link.instructions"
+  );
+  var navLinkDropdownMenu = document.querySelector(".nav_menu_dropdown");
+  var allNavLinkDropdownWraps = navLinkDropdownMenu.querySelectorAll(
+    ".nav_menu_link-dropdown"
+  );
+  var dropdownIconBtn = document.querySelector(".dropdown-icon-wrap");
   var loader = document.querySelector(".loader-text");
   var blackout = document.querySelector(".blackout");
   var pauseWrapper = document.querySelector(".pause-wrapper");
@@ -43,6 +52,7 @@
   var allSectionBtnWrappers = document.querySelectorAll(".section-wrap-btns");
   var backBtn = ctrlBtnWrapper.querySelector(".ctrl-btn.back");
   var initializing = true;
+  var navDropdownFlag = false;
   var activeSection = document.querySelector(".section_features");
   var activeSectionName = activeSection.classList[0].slice(8);
   var currentViewName = "view-a";
@@ -53,8 +63,8 @@
   function SetInitializing(newValue) {
     initializing = newValue;
   }
-  function SetCtrlBtnIndex(newValue) {
-    ctrlBtnIndex = newValue;
+  function SetNavDropdownFlag(newValue) {
+    navDropdownFlag = newValue;
   }
   function SetActiveSection(newValue) {
     activeSection = newValue;
@@ -74,6 +84,13 @@
   function SetEndBtnRange(newValue) {
     endBtnRange = newValue;
   }
+  function SetCtrlBtnIndex(newValue) {
+    ctrlBtnIndex = newValue;
+  }
+  var DeactivateActivateNavDropdown = function() {
+    navDropdownFlag ? navLinkDropdownMenu.classList.remove("active") : navLinkDropdownMenu.classList.add("active");
+    navDropdownFlag = !navDropdownFlag;
+  };
   var ResetSectionVideos = function(sectionName, subsectionName, vidIndex) {
     if (sectionName === "all") {
       document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
@@ -199,10 +216,7 @@
     featureVidTimer;
     //............................................................
     //............................................................
-    //FUNCTIONS
-    FeaturesFunction = function() {
-      console.log(this.allVidsFeatures);
-    };
+    //EVENTS
     AddHandlerVidsFeaturesEnd = function(handler) {
       this.allVidsFeatures.forEach(function(el) {
         el.addEventListener("ended", function() {
@@ -253,10 +267,7 @@
     activeDatasheet;
     //............................................................
     //............................................................
-    //FUNCTIONS
-    ComponentsFunction = function() {
-      console.log("inside components function");
-    };
+    //EVENTS
     AddHandlerVidsComponentDatasheetsEnds = function(handler) {
       this.allVidsComponentDatasheets.forEach(function(el) {
         el.addEventListener("ended", function() {
@@ -314,6 +325,9 @@
         handler();
       });
     };
+    //.......................................................................
+    //.......................................................................
+    //FUNCTIONS
     DisplayDataSheet = function() {
       DeactivateActivateSectionImage("comps", ctrlBtnIndex);
       this.dimmer.classList.add("active");
@@ -351,7 +365,7 @@
     instructionVidTimer;
     //............................................................
     //............................................................
-    //FUNCTIONS
+    //EVENTS
     AddHandlerVidsInstructionsEnds = function(handler) {
       this.allVidsInstructions.forEach(function(el) {
         el.addEventListener("ended", function() {
@@ -380,6 +394,9 @@
         handler();
       });
     };
+    //.......................................................................
+    //.......................................................................
+    //FUNCTIONS
     ResetToInstructionsMainScreen = function() {
       FlashBlackout(BLACKOUT_EXTRA);
       DeactivateSectionVideos();
@@ -392,6 +409,65 @@
 
   // src/0_navigation.js
   var navigation = class {
+    //******************************************************************
+    AddHandlerNavLinkInstructionsHoverIn = function(handler) {
+      navLinkInstructions.addEventListener("mouseenter", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkInstructionsHoverOut = function(handler) {
+      navLinkInstructions.addEventListener("mouseleave", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkInstructionsClick = function(handler) {
+      navLinkInstructions.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkDropdownMenuHoverIn = function(handler) {
+      navLinkDropdownMenu.addEventListener("mouseenter", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkDropdownMenuHoverOut = function(handler) {
+      navLinkDropdownMenu.addEventListener("mouseleave", function() {
+        handler();
+      });
+    };
+    AddHandlerAllNavLinkDropDownWraps = function(handler1, handler2, handler3) {
+      allNavLinkDropdownWraps.forEach(function(el) {
+        el.addEventListener("mouseenter", function() {
+          handler1(el);
+        });
+        el.addEventListener("mouseleave", function() {
+          handler2(el);
+        });
+        el.addEventListener("click", function() {
+          handler3();
+        });
+      });
+    };
+    AddHandlerDropDownIconBtn = function(handler) {
+      dropdownIconBtn.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerNavBtnMobile = function(handler) {
+      navButtonMobile.addEventListener("click", function() {
+        handler();
+      });
+    };
+    //******************************************************************
+    AddHandlerAllNavLinks = function(handler) {
+      allNavLinks.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+          const clicked = e.target.closest(".nav_menu_link");
+          if (!clicked) return;
+          handler(clicked);
+        });
+      });
+    };
     AddHandlerAllCtrlBtnsMouseEnter = function(handler) {
       allCtrlBtns.forEach(function(el) {
         el.addEventListener("mouseenter", function() {
@@ -406,21 +482,21 @@
         });
       });
     };
-    AddHandlerAllNavLinks = function(handler) {
-      allNavLinks.forEach(function(el) {
-        el.addEventListener("click", function(e) {
-          const clicked = e.target.closest(".nav_menu_link");
-          if (!clicked) return;
-          handler(clicked);
-        });
-      });
-    };
+    //.......................................................................
+    //.......................................................................
+    //FUNCTIONS
     ActivateNavLink = function() {
       allNavLinks.forEach(function(el) {
         el.classList.remove("current");
         if (el.classList.contains(activeSectionName))
           el.classList.add("current");
       });
+    };
+    ActivateNavLinkDropdown = function(navLinkName) {
+      allNavLinks.forEach(function(el) {
+        el.classList.remove("current");
+      });
+      navLinkName.classList.add("current");
     };
     ResetSectionSpecial = function() {
       switch (activeSectionName) {
@@ -464,17 +540,12 @@
 
   // src/main.js
   console.log("main");
-  var MainAllCtrlBtnsMouseEnter = function(ctrlBtn) {
-    ctrlBtn.classList.add("hovered");
-  };
-  var MainAllCtrlBtnsMouseLeave = function(ctrlBtn) {
-    ctrlBtn.classList.remove("hovered");
-  };
   var MainAllNavLinks = function(navLink) {
     SetActiveSectionName(navLink.classList[1]);
     SetActiveSection(
       document.querySelector(`.section_${activeSectionName}`)
     );
+    navLinkDropdownMenu.classList.remove("active");
     navigation_default.ActivateNavLink();
     if (components_default.activeDatasheet)
       components_default.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
@@ -493,6 +564,44 @@
     ActivateSection();
     ActivateSectionButtons();
     if (activeSectionName === "features") PlaySectionVideo("main");
+  };
+  var MainNavLinkInstructionsClick = function() {
+    DeactivateActivateNavDropdown();
+  };
+  var MainNavDropdownHoverIn = function() {
+    navLinkDropdownMenu.classList.add("active");
+    SetNavDropdownFlag(true);
+  };
+  var MainNavDropdownHoverOut = function() {
+    navLinkDropdownMenu.classList.remove("active");
+    SetNavDropdownFlag(false);
+  };
+  var MainAllNavLinkDropDownWrapsHoverIn = function(navLinkDropdownBtn) {
+    navLinkDropdownBtn.classList.add("hovered");
+  };
+  var MainAllNavLinkDropDownWrapsHoverOut = function(navLinkDropdownBtn) {
+    navLinkDropdownBtn.classList.remove("hovered");
+  };
+  var MainAllNavLinkDropDownWrapsClick = function() {
+    DeactivateActivateNavDropdown();
+  };
+  var MainDropDownIconBtn = function() {
+    DeactivateActivateNavDropdown();
+    navigation_default.ActivateNavLinkDropdown(navLinkInstructions);
+  };
+  var MainNavBtnMobile = function() {
+    if (navDropdownFlag) DeactivateActivateNavDropdown();
+    allNavLinks.forEach(function(el) {
+      el.classList.remove("current");
+      if (el.classList.contains(activeSectionName))
+        el.classList.add("current");
+    });
+  };
+  var MainAllCtrlBtnsMouseEnter = function(ctrlBtn) {
+    ctrlBtn.classList.add("hovered");
+  };
+  var MainAllCtrlBtnsMouseLeave = function(ctrlBtn) {
+    ctrlBtn.classList.remove("hovered");
   };
   var MainFeaturesVidsEnds = function() {
     features_default.featureVidTimer = setTimeout(function() {
@@ -635,13 +744,25 @@
     );
   };
   var init = function() {
-    navigation_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
-    navigation_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
     navigation_default.AddHandlerAllNavLinks(MainAllNavLinks);
+    navigation_default.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
+    navigation_default.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
+    navigation_default.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
+    navigation_default.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
+    navigation_default.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
+    navigation_default.AddHandlerAllNavLinkDropDownWraps(
+      MainAllNavLinkDropDownWrapsHoverIn,
+      MainAllNavLinkDropDownWrapsHoverOut,
+      MainAllNavLinkDropDownWrapsClick
+    );
+    navigation_default.AddHandlerDropDownIconBtn(MainDropDownIconBtn);
+    navigation_default.AddHandlerNavBtnMobile(MainNavBtnMobile);
     features_default.AddHandlerVidsFeaturesEnd(MainFeaturesVidsEnds);
     components_default.AddHandlerVidsComponentDatasheetsEnds(
       MainVidsComponentDatasheetsEnds
     );
+    navigation_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
+    navigation_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
     features_default.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
     components_default.AddHandlerMenuBtn(MainMenuBtn);
     components_default.AddHandlerMenuOptBtn(MainMenuOptBtn);
@@ -659,6 +780,7 @@
   init();
   window.addEventListener("load", function() {
     navLinkInstructions.click();
+    navLinkDropdownMenu.classList.remove("active");
     navLinkComponents.click();
     navLinkFeatures.click();
     this.setTimeout(function() {

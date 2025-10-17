@@ -18,7 +18,7 @@ class instructions {
   instructionVidTimer;
   //............................................................
   //............................................................
-  //FUNCTIONS
+  //EVENTS
   AddHandlerVidsInstructionsEnds = function (handler) {
     this.allVidsInstructions.forEach(function (el) {
       el.addEventListener("ended", function () {
@@ -47,6 +47,9 @@ class instructions {
       handler();
     });
   };
+  //.......................................................................
+  //.......................................................................
+  //FUNCTIONS
   ResetToInstructionsMainScreen = function () {
     global.FlashBlackout(BLACKOUT_EXTRA);
     global.DeactivateSectionVideos();

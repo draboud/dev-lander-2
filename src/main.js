@@ -19,17 +19,12 @@ import instructions from "./3_instructions";
 //.......................................................................
 //.......................................................................
 //NAVIGATION
-const MainAllCtrlBtnsMouseEnter = function (ctrlBtn) {
-  ctrlBtn.classList.add("hovered");
-};
-const MainAllCtrlBtnsMouseLeave = function (ctrlBtn) {
-  ctrlBtn.classList.remove("hovered");
-};
 const MainAllNavLinks = function (navLink) {
   global.SetActiveSectionName(navLink.classList[1]);
   global.SetActiveSection(
     document.querySelector(`.section_${global.activeSectionName}`)
   );
+  global.navLinkDropdownMenu.classList.remove("active");
   navigation.ActivateNavLink();
   if (components.activeDatasheet)
     components.activeDatasheet
@@ -50,6 +45,44 @@ const MainAllNavLinks = function (navLink) {
   global.ActivateSection();
   global.ActivateSectionButtons();
   if (global.activeSectionName === "features") global.PlaySectionVideo("main");
+};
+const MainNavLinkInstructionsClick = function () {
+  global.DeactivateActivateNavDropdown();
+};
+const MainNavDropdownHoverIn = function () {
+  global.navLinkDropdownMenu.classList.add("active");
+  global.SetNavDropdownFlag(true);
+};
+const MainNavDropdownHoverOut = function () {
+  global.navLinkDropdownMenu.classList.remove("active");
+  global.SetNavDropdownFlag(false);
+};
+const MainAllNavLinkDropDownWrapsHoverIn = function (navLinkDropdownBtn) {
+  navLinkDropdownBtn.classList.add("hovered");
+};
+const MainAllNavLinkDropDownWrapsHoverOut = function (navLinkDropdownBtn) {
+  navLinkDropdownBtn.classList.remove("hovered");
+};
+const MainAllNavLinkDropDownWrapsClick = function () {
+  global.DeactivateActivateNavDropdown();
+};
+const MainDropDownIconBtn = function () {
+  global.DeactivateActivateNavDropdown();
+  navigation.ActivateNavLinkDropdown(global.navLinkInstructions);
+};
+const MainNavBtnMobile = function () {
+  if (global.navDropdownFlag) global.DeactivateActivateNavDropdown();
+  global.allNavLinks.forEach(function (el) {
+    el.classList.remove("current");
+    if (el.classList.contains(global.activeSectionName))
+      el.classList.add("current");
+  });
+};
+const MainAllCtrlBtnsMouseEnter = function (ctrlBtn) {
+  ctrlBtn.classList.add("hovered");
+};
+const MainAllCtrlBtnsMouseLeave = function (ctrlBtn) {
+  ctrlBtn.classList.remove("hovered");
 };
 //.......................................................................
 //.......................................................................
@@ -220,15 +253,27 @@ const MainCtrlBtnsInstructions = function () {
 };
 //.......................................................................
 //.......................................................................
-//NAVIGATION
+//INIT
 const init = function () {
-  navigation.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
-  navigation.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
   navigation.AddHandlerAllNavLinks(MainAllNavLinks);
+  navigation.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
+  navigation.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
+  navigation.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
+  navigation.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
+  navigation.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
+  navigation.AddHandlerAllNavLinkDropDownWraps(
+    MainAllNavLinkDropDownWrapsHoverIn,
+    MainAllNavLinkDropDownWrapsHoverOut,
+    MainAllNavLinkDropDownWrapsClick
+  );
+  navigation.AddHandlerDropDownIconBtn(MainDropDownIconBtn);
+  navigation.AddHandlerNavBtnMobile(MainNavBtnMobile);
   features.AddHandlerVidsFeaturesEnd(MainFeaturesVidsEnds);
   components.AddHandlerVidsComponentDatasheetsEnds(
     MainVidsComponentDatasheetsEnds
   );
+  navigation.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
+  navigation.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
   features.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
   components.AddHandlerMenuBtn(MainMenuBtn);
   components.AddHandlerMenuOptBtn(MainMenuOptBtn);
@@ -249,6 +294,7 @@ const init = function () {
 init();
 window.addEventListener("load", function () {
   global.navLinkInstructions.click();
+  global.navLinkDropdownMenu.classList.remove("active");
   global.navLinkComponents.click();
   global.navLinkFeatures.click();
   this.setTimeout(function () {

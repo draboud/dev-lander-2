@@ -40,10 +40,7 @@ class components {
   activeDatasheet;
   //............................................................
   //............................................................
-  //FUNCTIONS
-  ComponentsFunction = function () {
-    console.log("inside components function");
-  };
+  //EVENTS
   AddHandlerVidsComponentDatasheetsEnds = function (handler) {
     this.allVidsComponentDatasheets.forEach(function (el) {
       el.addEventListener("ended", function () {
@@ -101,6 +98,9 @@ class components {
       handler();
     });
   };
+  //.......................................................................
+  //.......................................................................
+  //FUNCTIONS
   DisplayDataSheet = function () {
     global.DeactivateActivateSectionImage("comps", global.ctrlBtnIndex);
     this.dimmer.classList.add("active");

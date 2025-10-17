@@ -1,13 +1,7 @@
 //............................................................
 //............................................................
 //IMPORTS
-import {
-  BLACKOUT_STANDARD,
-  COMP_BTNS_END_RANGE_A,
-  COMP_BTNS_END_RANGE_B,
-  COMP_BTNS_START_RANGE_A,
-  COMP_BTNS_START_RANGE_B,
-} from "./0_config";
+import { BLACKOUT_STANDARD } from "./0_config";
 //............................................................
 //............................................................
 //GLOBAL DEFINITIONS
@@ -22,6 +16,15 @@ export const navLinkInstructions = document.querySelector(
   ".nav_menu_link.instructions"
 );
 export const allNavLinks = document.querySelectorAll(".nav_menu_link");
+export const navButtonMobile = document.querySelector(".nav_button");
+export const navLinkDropdown = document.querySelector(
+  ".nav_menu_link.instructions"
+);
+export const navLinkDropdownMenu = document.querySelector(".nav_menu_dropdown");
+export const allNavLinkDropdownWraps = navLinkDropdownMenu.querySelectorAll(
+  ".nav_menu_link-dropdown"
+);
+export const dropdownIconBtn = document.querySelector(".dropdown-icon-wrap");
 export const loader = document.querySelector(".loader-text");
 export const blackout = document.querySelector(".blackout");
 export const pauseWrapper = document.querySelector(".pause-wrapper");
@@ -41,6 +44,7 @@ export const allSectionBtnWrappers =
   document.querySelectorAll(".section-wrap-btns");
 export const backBtn = ctrlBtnWrapper.querySelector(".ctrl-btn.back");
 export let initializing = true;
+export let navDropdownFlag = false;
 export let activeSection = document.querySelector(".section_features");
 export let activeSectionName = activeSection.classList[0].slice(8);
 export let currentViewName = "view-a";
@@ -54,8 +58,8 @@ export let endBtnRange;
 export function SetInitializing(newValue) {
   initializing = newValue;
 }
-export function SetCtrlBtnIndex(newValue) {
-  ctrlBtnIndex = newValue;
+export function SetNavDropdownFlag(newValue) {
+  navDropdownFlag = newValue;
 }
 export function SetActiveSection(newValue) {
   activeSection = newValue;
@@ -75,9 +79,18 @@ export function SetStartBtnRange(newValue) {
 export function SetEndBtnRange(newValue) {
   endBtnRange = newValue;
 }
+export function SetCtrlBtnIndex(newValue) {
+  ctrlBtnIndex = newValue;
+}
 //............................................................
 //............................................................
 //GLOBAL FUNCTIONS
+export const DeactivateActivateNavDropdown = function () {
+  navDropdownFlag
+    ? navLinkDropdownMenu.classList.remove("active")
+    : navLinkDropdownMenu.classList.add("active");
+  navDropdownFlag = !navDropdownFlag;
+};
 export const ResetSectionVideos = function (
   sectionName,
   subsectionName,

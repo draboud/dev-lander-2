@@ -17,10 +17,7 @@ class features {
   featureVidTimer;
   //............................................................
   //............................................................
-  //FUNCTIONS
-  FeaturesFunction = function () {
-    console.log(this.allVidsFeatures);
-  };
+  //EVENTS
   AddHandlerVidsFeaturesEnd = function (handler) {
     this.allVidsFeatures.forEach(function (el) {
       el.addEventListener("ended", function () {
