@@ -101,11 +101,7 @@ const MainCtrlBtnsFeatures = function () {
   clearTimeout(features.featureTextTimer);
   clearTimeout(features.featureVidTimer);
   global.FlashBlackout(BLACKOUT_STANDARD);
-  global.DeactivateActivateSectionText();
-  global.DeactivateActivateSectionImage();
-  global.ResetSectionVideos();
-  global.ActivateSectionVideo("features", global.ctrlBtnIndex);
-  global.PlaySectionVideo("features", global.ctrlBtnIndex);
+  global.PrepSectionAndPlayVideo("features", global.ctrlBtnIndex);
   global.DeactivateActivateCurrentCtrlButtons("features", global.ctrlBtnIndex);
   features.featureTextTimer = setTimeout(function () {
     global.DeactivateActivateSectionText("feature", global.ctrlBtnIndex);
@@ -129,26 +125,18 @@ const MainBackBtn = function () {
 };
 const MainCtrlBtnsComponents = function () {
   components.optsMenu.classList.remove("active");
-  global.DeactivateActivateSectionText();
-  global.DeactivateActivateSectionImage();
-  global.ResetSectionVideos();
-  global.ActivateSectionVideo("datasheets", global.ctrlBtnIndex);
-  global.PlaySectionVideo("datasheets", global.ctrlBtnIndex);
+  global.PrepSectionAndPlayVideo("datasheets", global.ctrlBtnIndex);
   components.ctrlBtnWrapperComponents.classList.remove("active");
 };
-const MainMenuBtn = function () {
+const MainOptionsMenuBtn = function () {
   components.optsMenu.classList.add("active");
 };
-const MainMenuOptBtn = function (clickedBtnContent) {
+const MainOptionsMenuOpt = function (clickedBtnContent) {
   components.optsMenu.classList.remove("active");
   if (global.currentViewName !== clickedBtnContent) {
     global.SetCurrentViewName(clickedBtnContent);
     components.optsMenuBtn.textContent = global.currentViewName;
-    global.DeactivateActivateSectionText();
-    global.DeactivateActivateSectionImage();
-    global.ResetSectionVideos();
-    global.ActivateSectionVideo(global.currentViewName);
-    global.PlaySectionVideo(global.currentViewName);
+    global.PrepSectionAndPlayVideo(global.currentViewName);
     components.ctrlBtnWrapperComponents.classList.remove("active");
   }
 };
@@ -239,9 +227,7 @@ const MainCtrlBtnsInstructions = function () {
     instructions.currentInstructionVid
   );
   global.ResetSectionVideos();
-  global.DeactivateActivateSectionText();
-  global.DeactivateActivateSectionImage();
-  global.PlaySectionVideo(
+  global.PrepSectionAndPlayVideo(
     "instructions",
     instructions.currentInstructionVid,
     true
@@ -275,8 +261,8 @@ const init = function () {
   navigation.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
   navigation.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
   features.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
-  components.AddHandlerMenuBtn(MainMenuBtn);
-  components.AddHandlerMenuOptBtn(MainMenuOptBtn);
+  components.AddHandlerMenuBtn(MainOptionsMenuBtn);
+  components.AddHandlerMenuOptBtn(MainOptionsMenuOpt);
   components.AddHandlerBackBtn(MainBackBtn);
   components.AddHandlerVidsComponentViewsEnds(MainComponentVidsViewsEnds);
   components.AddHandlerTextImgBtn(MainTextImgBtn);

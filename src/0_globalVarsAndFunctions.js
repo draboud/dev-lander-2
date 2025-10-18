@@ -249,3 +249,14 @@ export const DeactivateActivateCtrlBtnRange = function (
       if (index >= startIndex && index <= endIndex) el.classList.add("active");
     });
 };
+export const PrepSectionAndPlayVideo = function (
+  vidName,
+  vidIndex,
+  pauseEnable
+) {
+  DeactivateActivateSectionText();
+  DeactivateActivateSectionImage();
+  ResetSectionVideos();
+  ActivateSectionVideo(vidName, vidIndex);
+  PlaySectionVideo(vidName, vidIndex, pauseEnable);
+};
