@@ -15,7 +15,15 @@ import instructions from "./3_instructions";
 //.......................................................................
 //CLASS EVENTS
 class navigation {
-  //******************************************************************
+  AddHandlerAllNavLinks = function (handler) {
+    global.allNavLinks.forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        const clicked = e.target.closest(".nav_menu_link");
+        if (!clicked) return;
+        handler(clicked);
+      });
+    });
+  };
   AddHandlerNavLinkInstructionsHoverIn = function (handler) {
     global.navLinkInstructions.addEventListener("mouseenter", function () {
       handler();
@@ -41,8 +49,8 @@ class navigation {
       handler();
     });
   };
-  AddHandlerAllNavLinkDropDownWraps = function (handler1, handler2, handler3) {
-    global.allNavLinkDropdownWraps.forEach(function (el) {
+  AddHandlerAllNavLinkDropDownOpts = function (handler1, handler2, handler3) {
+    global.allNavLinkDropdownOpts.forEach(function (el, index) {
       el.addEventListener("mouseenter", function () {
         handler1(el);
       });
@@ -50,7 +58,11 @@ class navigation {
         handler2(el);
       });
       el.addEventListener("click", function () {
-        handler3();
+        global.SetActiveSectionName(
+          el.parentElement.parentElement.querySelector(".nav_menu_link")
+        );
+        let dropdownIndex = index;
+        handler3(dropdownIndex);
       });
     });
   };
@@ -62,16 +74,6 @@ class navigation {
   AddHandlerNavBtnMobile = function (handler) {
     global.navButtonMobile.addEventListener("click", function () {
       handler();
-    });
-  };
-  //******************************************************************
-  AddHandlerAllNavLinks = function (handler) {
-    global.allNavLinks.forEach(function (el) {
-      el.addEventListener("click", function (e) {
-        const clicked = e.target.closest(".nav_menu_link");
-        if (!clicked) return;
-        handler(clicked);
-      });
     });
   };
   AddHandlerAllCtrlBtnsMouseEnter = function (handler) {
