@@ -212,16 +212,22 @@ const MainVidsInstructionsPauseUnpause = function () {
   if (global.pauseFlag) {
     global.pauseWrapper.classList.add("active");
     instructions.allVidsInstructions[
-      instructions.currentInstructionVid + global.dropdownIndex
+      instructions.currentInstructionVid +
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
     ].pause();
     instructions.allVidsInstructionsMobileP[
-      instructions.currentInstructionVid + global.dropdownIndex
+      instructions.currentInstructionVid +
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
     ].pause();
   } else {
     global.pauseWrapper.classList.remove("active");
-    instructions.allVidsInstructions[instructions.currentInstructionVid].play();
+    instructions.allVidsInstructions[
+      instructions.currentInstructionVid +
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
+    ].play();
     instructions.allVidsInstructionsMobileP[
-      instructions.currentInstructionVid
+      instructions.currentInstructionVid +
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
     ].play();
   }
 };

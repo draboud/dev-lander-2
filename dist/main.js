@@ -722,12 +722,12 @@
   var MainVidsInstructionsPauseUnpause = function() {
     if (pauseFlag) {
       pauseWrapper.classList.add("active");
-      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid + dropdownIndex].pause();
-      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid + dropdownIndex].pause();
+      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].pause();
+      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].pause();
     } else {
       pauseWrapper.classList.remove("active");
-      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid].play();
-      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid].play();
+      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].play();
+      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].play();
     }
   };
   var MainCtrlBtnsInstructions = function() {
