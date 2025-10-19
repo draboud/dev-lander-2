@@ -793,6 +793,7 @@
     navLinkDropdownMenu.classList.remove("active");
     navLinkComponents.click();
     navLinkFeatures.click();
+    navLinkFeatures.click();
     this.setTimeout(function() {
       navBar.classList.add("active");
       ctrlBtnWrapper.classList.add("active");
