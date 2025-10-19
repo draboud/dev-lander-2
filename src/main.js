@@ -302,12 +302,12 @@ window.addEventListener("load", function () {
   global.navLinkDropdownMenu.classList.remove("active");
   global.navLinkComponents.click();
   global.navLinkFeatures.click();
-  global.navLinkFeatures.click();
   this.setTimeout(function () {
     global.navBar.classList.add("active");
     global.ctrlBtnWrapper.classList.add("active");
     global.SetInitializing(false);
     global.loader.classList.remove("active");
     global.blackout.classList.add("off");
+    features.allCtrlBtnsFeatures[0].click();
   }, BLACKOUT_INIT);
 });

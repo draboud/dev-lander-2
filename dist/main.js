@@ -793,13 +793,13 @@
     navLinkDropdownMenu.classList.remove("active");
     navLinkComponents.click();
     navLinkFeatures.click();
-    navLinkFeatures.click();
     this.setTimeout(function() {
       navBar.classList.add("active");
       ctrlBtnWrapper.classList.add("active");
       SetInitializing(false);
       loader.classList.remove("active");
       blackout.classList.add("off");
+      features_default.allCtrlBtnsFeatures[0].click();
     }, BLACKOUT_INIT);
   });
 })();
