@@ -74,6 +74,11 @@ const MainAllNavLinkDropDownOptsHoverOut = function (navLinkDropdownBtn) {
 const MainAllNavLinkDropDownOptsClick = function (dropdownIndex) {
   MainAllNavLinks(global.activeSectionName, dropdownIndex);
   global.DeactivateActivateNavDropdown();
+  // document.querySelector(".nav_button.w-nav-button").click();
+  document.querySelector(".w-nav-overlay").style.display = "none";
+  document
+    .querySelector(".nav_button.w-nav-button")
+    .classList.remove("w--open");
 };
 const MainDropDownIconBtn = function () {
   global.DeactivateActivateNavDropdown();

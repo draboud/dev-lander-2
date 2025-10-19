@@ -606,6 +606,8 @@
   var MainAllNavLinkDropDownOptsClick = function(dropdownIndex2) {
     MainAllNavLinks(activeSectionName, dropdownIndex2);
     DeactivateActivateNavDropdown();
+    document.querySelector(".w-nav-overlay").style.display = "none";
+    document.querySelector(".nav_button.w-nav-button").classList.remove("w--open");
   };
   var MainDropDownIconBtn = function() {
     DeactivateActivateNavDropdown();
