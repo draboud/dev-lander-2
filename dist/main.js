@@ -792,14 +792,13 @@
     navLinkInstructions.click();
     navLinkDropdownMenu.classList.remove("active");
     navLinkComponents.click();
-    navLinkFeatures.click();
     this.setTimeout(function() {
       navBar.classList.add("active");
       ctrlBtnWrapper.classList.add("active");
       SetInitializing(false);
       loader.classList.remove("active");
       blackout.classList.add("off");
-      features_default.allCtrlBtnsFeatures[0].click();
+      MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
     }, BLACKOUT_INIT);
   });
 })();
