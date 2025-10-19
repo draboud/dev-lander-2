@@ -308,6 +308,6 @@ window.addEventListener("load", function () {
     global.SetInitializing(false);
     global.loader.classList.remove("active");
     global.blackout.classList.add("off");
-    MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
   }, BLACKOUT_INIT);
+  MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
 });

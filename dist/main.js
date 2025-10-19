@@ -798,7 +798,7 @@
       SetInitializing(false);
       loader.classList.remove("active");
       blackout.classList.add("off");
-      MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
     }, BLACKOUT_INIT);
+    MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
   });
 })();
