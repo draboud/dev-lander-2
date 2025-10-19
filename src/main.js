@@ -298,10 +298,10 @@ const init = function () {
 //LOADER
 init();
 window.addEventListener("load", function () {
-  global.navLinkInstructions.click();
   global.navLinkDropdownMenu.classList.remove("active");
+  global.navLinkInstructions.click();
   global.navLinkComponents.click();
-  // global.navLinkFeatures.click();
+  global.navLinkFeatures.click();
   this.setTimeout(function () {
     global.navBar.classList.add("active");
     global.ctrlBtnWrapper.classList.add("active");
@@ -309,5 +309,6 @@ window.addEventListener("load", function () {
     global.loader.classList.remove("active");
     global.blackout.classList.add("off");
   }, BLACKOUT_INIT);
-  MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
+  // MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
+  global.PlaySectionVideo("features");
 });

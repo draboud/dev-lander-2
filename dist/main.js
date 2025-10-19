@@ -789,9 +789,10 @@
   };
   init();
   window.addEventListener("load", function() {
-    navLinkInstructions.click();
     navLinkDropdownMenu.classList.remove("active");
+    navLinkInstructions.click();
     navLinkComponents.click();
+    navLinkFeatures.click();
     this.setTimeout(function() {
       navBar.classList.add("active");
       ctrlBtnWrapper.classList.add("active");
@@ -799,6 +800,6 @@
       loader.classList.remove("active");
       blackout.classList.add("off");
     }, BLACKOUT_INIT);
-    MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
+    PlaySectionVideo("features");
   });
 })();
