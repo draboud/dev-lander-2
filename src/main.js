@@ -19,6 +19,14 @@ import instructions from "./3_instructions";
 //.......................................................................
 //.......................................................................
 //NAVIGATION
+const MainStartButton = function () {
+  console.log("start button pressed");
+  global.startButton.classList.remove("active");
+  global.navBar.classList.add("active");
+  global.ctrlBtnWrapper.classList.add("active");
+  global.blackout.classList.add("off");
+  MainAllNavLinks(global.navLinkFeatures);
+};
 const MainAllNavLinks = function (navLink, dropdownIndex) {
   if (dropdownIndex) global.SetDropdownIndex(dropdownIndex);
   else {
@@ -260,6 +268,7 @@ const MainCtrlBtnsInstructions = function () {
 //.......................................................................
 //INIT
 const init = function () {
+  navigation.AddHandlerStartButton(MainStartButton);
   navigation.AddHandlerAllNavLinks(MainAllNavLinks);
   navigation.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
   navigation.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
@@ -303,12 +312,16 @@ window.addEventListener("load", function () {
   global.navLinkComponents.click();
   global.navLinkFeatures.click();
   this.setTimeout(function () {
-    global.navBar.classList.add("active");
-    global.ctrlBtnWrapper.classList.add("active");
+    // global.navBar.classList.add("active");
+    // global.ctrlBtnWrapper.classList.add("active");
     global.SetInitializing(false);
     global.loader.classList.remove("active");
-    global.blackout.classList.add("off");
+    // global.blackout.classList.add("off");
+    global.startButton.classList.add("active");
   }, BLACKOUT_INIT);
-  // MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
-  global.PlaySectionVideo("features");
+  // this.setTimeout(function () {
+  //   MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
+  //   console.log("test");
+  // }, 5000);
+  // global.PlaySectionVideo("features");
 });

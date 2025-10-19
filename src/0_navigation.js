@@ -15,6 +15,11 @@ import instructions from "./3_instructions";
 //.......................................................................
 //CLASS EVENTS
 class navigation {
+  AddHandlerStartButton = function (handler) {
+    global.startButton.addEventListener("click", function () {
+      handler();
+    });
+  };
   AddHandlerAllNavLinks = function (handler) {
     global.allNavLinks.forEach(function (el) {
       el.addEventListener("click", function (e) {

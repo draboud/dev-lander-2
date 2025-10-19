@@ -14,6 +14,7 @@
   var COMP_BTNS_END_RANGE_B = 11;
 
   // src/0_globalVarsAndFunctions.js
+  var startButton = document.querySelector(".start-btn-wrapper");
   var navBar = document.querySelector(".nav_component");
   var navLinkFeatures = document.querySelector(
     ".nav_menu_link.features"
@@ -423,6 +424,11 @@
 
   // src/0_navigation.js
   var navigation = class {
+    AddHandlerStartButton = function(handler) {
+      startButton.addEventListener("click", function() {
+        handler();
+      });
+    };
     AddHandlerAllNavLinks = function(handler) {
       allNavLinks.forEach(function(el) {
         el.addEventListener("click", function(e) {
@@ -555,6 +561,14 @@
   var navigation_default = new navigation();
 
   // src/main.js
+  var MainStartButton = function() {
+    console.log("start button pressed");
+    startButton.classList.remove("active");
+    navBar.classList.add("active");
+    ctrlBtnWrapper.classList.add("active");
+    blackout.classList.add("off");
+    MainAllNavLinks(navLinkFeatures);
+  };
   var MainAllNavLinks = function(navLink, dropdownIndex2) {
     if (dropdownIndex2) SetDropdownIndex(dropdownIndex2);
     else {
@@ -754,6 +768,7 @@
     );
   };
   var init = function() {
+    navigation_default.AddHandlerStartButton(MainStartButton);
     navigation_default.AddHandlerAllNavLinks(MainAllNavLinks);
     navigation_default.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
     navigation_default.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
@@ -794,12 +809,9 @@
     navLinkComponents.click();
     navLinkFeatures.click();
     this.setTimeout(function() {
-      navBar.classList.add("active");
-      ctrlBtnWrapper.classList.add("active");
       SetInitializing(false);
       loader.classList.remove("active");
-      blackout.classList.add("off");
+      startButton.classList.add("active");
     }, BLACKOUT_INIT);
-    PlaySectionVideo("features");
   });
 })();
