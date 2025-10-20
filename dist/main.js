@@ -102,6 +102,9 @@
   var PrepSectionAndPlayVideo = function(vidName, vidIndex, pauseEnable) {
     DeactivateActivateSectionText();
     DeactivateActivateSectionImage();
+    blackout.classList.remove("off");
+    ResetSectionVideos();
+    blackout.classList.add("off");
     ActivateSectionVideo(vidName, vidIndex);
     PlaySectionVideo(vidName, vidIndex, pauseEnable);
   };
