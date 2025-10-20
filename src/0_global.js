@@ -104,7 +104,7 @@ export const PrepSectionAndPlayVideo = function (
 ) {
   DeactivateActivateSectionText();
   DeactivateActivateSectionImage();
-  ResetSectionVideos();
+  // ResetSectionVideos();
   ActivateSectionVideo(vidName, vidIndex);
   PlaySectionVideo(vidName, vidIndex, pauseEnable);
 };
