@@ -5,7 +5,8 @@ import { BLACKOUT_STANDARD } from "./0_config";
 //............................................................
 //............................................................
 //GLOBAL DEFINITIONS
-export const startButton = document.querySelector(".start-btn-wrapper");
+export const startButtonWrapper = document.querySelector(".start-btn-wrapper");
+export const startButton = document.querySelector(".start-btn");
 export const navBar = document.querySelector(".nav_component");
 export const navLinkFeatures = document.querySelector(
   ".nav_menu_link.features"

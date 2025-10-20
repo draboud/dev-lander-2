@@ -48,13 +48,24 @@ class components {
       });
     });
   };
-  AddHandlerMenuBtn = function (handler) {
+  AddHandlerOptionsMenuHoverIn = function (handler) {
+    this.optsMenuBtn.addEventListener("mouseenter", function () {
+      handler();
+    });
+  };
+  AddHandlerOptionsMenuHoverOut = function (handler) {
+    this.optsMenuBtn.addEventListener("mouseleave", function () {
+      handler();
+    });
+  };
+  AddHandlerOptionsMenuClick = function (handler) {
     this.optsMenuBtn.addEventListener("click", function () {
       handler();
     });
   };
-  AddHandlerMenuOptBtn = function (handler) {
+  AddHandlerOptionsMenuOpt = function (handler) {
     this.optsMenu.addEventListener("click", function (e) {
+      console.log("tester");
       const clicked = e.target.closest(".opts-menu_link");
       const clickedBtnContent = clicked.textContent;
       if (!clicked) return;

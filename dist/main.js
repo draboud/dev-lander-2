@@ -14,7 +14,8 @@
   var COMP_BTNS_END_RANGE_B = 11;
 
   // src/0_globalVarsAndFunctions.js
-  var startButton = document.querySelector(".start-btn-wrapper");
+  var startButtonWrapper = document.querySelector(".start-btn-wrapper");
+  var startButton = document.querySelector(".start-btn");
   var navBar = document.querySelector(".nav_component");
   var navLinkFeatures = document.querySelector(
     ".nav_menu_link.features"
@@ -286,13 +287,24 @@
         });
       });
     };
-    AddHandlerMenuBtn = function(handler) {
+    AddHandlerOptionsMenuHoverIn = function(handler) {
+      this.optsMenuBtn.addEventListener("mouseenter", function() {
+        handler();
+      });
+    };
+    AddHandlerOptionsMenuHoverOut = function(handler) {
+      this.optsMenuBtn.addEventListener("mouseleave", function() {
+        handler();
+      });
+    };
+    AddHandlerOptionsMenuClick = function(handler) {
       this.optsMenuBtn.addEventListener("click", function() {
         handler();
       });
     };
-    AddHandlerMenuOptBtn = function(handler) {
+    AddHandlerOptionsMenuOpt = function(handler) {
       this.optsMenu.addEventListener("click", function(e) {
+        console.log("tester");
         const clicked = e.target.closest(".opts-menu_link");
         const clickedBtnContent = clicked.textContent;
         if (!clicked) return;
@@ -561,13 +573,21 @@
   var navigation_default = new navigation();
 
   // src/main.js
+  console.log("TEST");
   var MainStartButton = function() {
     console.log("start button pressed");
-    startButton.classList.remove("active");
-    navBar.classList.add("active");
-    ctrlBtnWrapper.classList.add("active");
-    blackout.classList.add("off");
-    MainAllNavLinks(navLinkFeatures);
+    startButtonWrapper.classList.remove("active");
+    setTimeout(function() {
+      DeactivateActivateSectionText();
+      blackout.classList.add("off");
+      features_default.allVidsFeatures[0].play();
+      sectionFeatures.querySelectorAll(".vid-mobile-p")[0].play();
+      setTimeout(function() {
+        navBar.classList.add("active");
+        DeactivateActivateSectionText("main");
+        ctrlBtnWrapper.classList.add("active");
+      }, 2e3);
+    }, 500);
   };
   var MainAllNavLinks = function(navLink, dropdownIndex2) {
     if (dropdownIndex2) SetDropdownIndex(dropdownIndex2);
@@ -677,8 +697,14 @@
   var MainVidsComponentDatasheetsEnds = function() {
     components_default.DisplayDataSheet();
   };
-  var MainOptionsMenuBtn = function() {
+  var MainOptionsMenuClick = function() {
     components_default.optsMenu.classList.add("active");
+  };
+  var MainOptionsMenuHoverIn = function() {
+    components_default.optsMenu.classList.add("active");
+  };
+  var MainOptionsMenuHoverOut = function() {
+    components_default.optsMenu.classList.remove("active");
   };
   var MainOptionsMenuOpt = function(clickedBtnContent) {
     components_default.optsMenu.classList.remove("active");
@@ -789,8 +815,10 @@
     navigation_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
     navigation_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
     features_default.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
-    components_default.AddHandlerMenuBtn(MainOptionsMenuBtn);
-    components_default.AddHandlerMenuOptBtn(MainOptionsMenuOpt);
+    components_default.AddHandlerOptionsMenuClick(MainOptionsMenuClick);
+    components_default.AddHandlerOptionsMenuHoverIn(MainOptionsMenuHoverIn);
+    components_default.AddHandlerOptionsMenuHoverOut(MainOptionsMenuHoverOut);
+    components_default.AddHandlerOptionsMenuOpt(MainOptionsMenuOpt);
     components_default.AddHandlerBackBtn(MainBackBtn);
     components_default.AddHandlerVidsComponentViewsEnds(MainComponentVidsViewsEnds);
     components_default.AddHandlerTextImgBtn(MainTextImgBtn);
@@ -809,9 +837,10 @@
     navLinkComponents.click();
     navLinkFeatures.click();
     this.setTimeout(function() {
+      ResetSectionVideos();
       SetInitializing(false);
       loader.classList.remove("active");
-      startButton.classList.add("active");
+      startButtonWrapper.classList.add("active");
     }, BLACKOUT_INIT);
   });
 })();
