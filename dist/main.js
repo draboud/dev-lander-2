@@ -39,7 +39,7 @@
   );
   var dropdownIconBtn = document.querySelector(".dropdown-icon-wrap");
   var loader = document.querySelector(".loader-text");
-  var blackout2 = document.querySelector(".blackout");
+  var blackout = document.querySelector(".blackout");
   var pauseWrapper = document.querySelector(".pause-wrapper");
   var sectionFeatures = document.querySelector(".section_features");
   var sectionComponents = document.querySelector(".section_components");
@@ -104,7 +104,10 @@
     DeactivateActivateSectionImage();
     ResetSectionVideos();
     ActivateSectionVideo(vidName, vidIndex);
-    PlaySectionVideo(vidName, vidIndex, pauseEnable);
+    setTimeout(function() {
+      blackout.classList.add("off");
+      PlaySectionVideo(vidName, vidIndex, pauseEnable);
+    }, 200);
   };
   var DeactivateActivateSectionText = function(textName, textIndex) {
     activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
@@ -200,9 +203,9 @@
     backBtn.classList.remove("active");
   };
   var FlashBlackout = function(timerVariable) {
-    blackout2.classList.remove("off");
+    blackout.classList.remove("off");
     setTimeout(function() {
-      blackout2.classList.add("off");
+      blackout.classList.add("off");
     }, timerVariable);
   };
   var DeactivateActivateCurrentCtrlButtons = function(sectionName, btnIndex) {
@@ -580,7 +583,7 @@
     startButtonWrapper.classList.remove("active");
     setTimeout(function() {
       DeactivateActivateSectionText();
-      blackout2.classList.add("off");
+      blackout.classList.add("off");
       features_default.allVidsFeatures[0].play();
       sectionFeatures.querySelectorAll(".vid-mobile-p")[0].play();
       setTimeout(function() {
@@ -778,12 +781,11 @@
     clearTimeout(instructions_default.instructionVidTimer);
     instructions_default.instructionVidTimer = null;
     blackout.classList.remove("off");
-    ActivateSectionVideo(
+    PrepSectionAndPlayVideo(
       "instructions",
-      instructions_default.currentInstructionVid
+      instructions_default.currentInstructionVid,
+      true
     );
-    DeactivateActivateSectionImage();
-    PlaySectionVideo();
     DeactivateActivateCurrentCtrlButtons(
       "instructions",
       instructions_default.currentInstructionVid

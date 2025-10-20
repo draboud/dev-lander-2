@@ -262,18 +262,18 @@ const MainCtrlBtnsInstructions = function () {
   clearTimeout(instructions.instructionVidTimer);
   instructions.instructionVidTimer = null;
   // global.FlashBlackout(BLACKOUT_STANDARD);
-  blackout.classList.remove("off");
-  global.ActivateSectionVideo(
-    "instructions",
-    instructions.currentInstructionVid
-  );
-  // global.PrepSectionAndPlayVideo(
+  global.blackout.classList.remove("off");
+  // global.DeactivateActivateSectionImage();
+  // global.ActivateSectionVideo(
   //   "instructions",
-  //   instructions.currentInstructionVid,
-  //   true
+  //   instructions.currentInstructionVid
   // );
-  global.DeactivateActivateSectionImage();
-  global.PlaySectionVideo();
+  global.PrepSectionAndPlayVideo(
+    "instructions",
+    instructions.currentInstructionVid,
+    true
+  );
+  // global.PlaySectionVideo("instructions");
   global.DeactivateActivateCurrentCtrlButtons(
     "instructions",
     instructions.currentInstructionVid

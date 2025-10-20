@@ -106,7 +106,10 @@ export const PrepSectionAndPlayVideo = function (
   DeactivateActivateSectionImage();
   ResetSectionVideos();
   ActivateSectionVideo(vidName, vidIndex);
-  PlaySectionVideo(vidName, vidIndex, pauseEnable);
+  setTimeout(function () {
+    blackout.classList.add("off");
+    PlaySectionVideo(vidName, vidIndex, pauseEnable);
+  }, 200);
 };
 export const DeactivateActivateSectionText = function (textName, textIndex) {
   activeSection.querySelectorAll(".section-wrap-text").forEach(function (el) {
