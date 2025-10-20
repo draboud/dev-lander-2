@@ -39,7 +39,7 @@
   );
   var dropdownIconBtn = document.querySelector(".dropdown-icon-wrap");
   var loader = document.querySelector(".loader-text");
-  var blackout = document.querySelector(".blackout");
+  var blackout2 = document.querySelector(".blackout");
   var pauseWrapper = document.querySelector(".pause-wrapper");
   var sectionFeatures = document.querySelector(".section_features");
   var sectionComponents = document.querySelector(".section_components");
@@ -105,7 +105,7 @@
     ResetSectionVideos();
     ActivateSectionVideo(vidName, vidIndex);
     setTimeout(function() {
-      blackout.classList.add("off");
+      blackout2.classList.add("off");
       PlaySectionVideo(vidName, vidIndex, pauseEnable);
     }, 200);
   };
@@ -170,17 +170,8 @@
     activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap")[vidIndex].classList.add("active");
     activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap.mobile-p")[vidIndex].classList.add("active");
   };
-  var ActivateSection = function(sectionIndex) {
-    if (!sectionIndex) sectionIndex = 0;
-    allSections.forEach(function(el) {
-      el.classList.remove("active");
-    });
-    document.querySelectorAll(`.section_${activeSectionName}`)[sectionIndex].classList.add("active");
-    if (!initializing) FlashBlackout(BLACKOUT_STANDARD);
-  };
   var DeactivateSectionVideos = function(sectionName) {
     if (!sectionName) {
-      blackout.classList.remove("off");
       activeSection.querySelectorAll(".video-wrap").forEach(function(el) {
         el.classList.remove("active");
       });
@@ -189,6 +180,14 @@
         el.classList.remove("active");
       });
     }
+  };
+  var ActivateSection = function(sectionIndex) {
+    if (!sectionIndex) sectionIndex = 0;
+    allSections.forEach(function(el) {
+      el.classList.remove("active");
+    });
+    document.querySelectorAll(`.section_${activeSectionName}`)[sectionIndex].classList.add("active");
+    if (!initializing) FlashBlackout(BLACKOUT_STANDARD);
   };
   var PlaySectionVideo = function(vidName, vidIndex, pauseEnable) {
     if (pauseEnable) pauseWrapper.style.pointerEvents = "auto";
@@ -204,9 +203,9 @@
     backBtn.classList.remove("active");
   };
   var FlashBlackout = function(timerVariable) {
-    blackout.classList.remove("off");
+    blackout2.classList.remove("off");
     setTimeout(function() {
-      blackout.classList.add("off");
+      blackout2.classList.add("off");
     }, timerVariable);
   };
   var DeactivateActivateCurrentCtrlButtons = function(sectionName, btnIndex) {
@@ -584,7 +583,7 @@
     startButtonWrapper.classList.remove("active");
     setTimeout(function() {
       DeactivateActivateSectionText();
-      blackout.classList.add("off");
+      blackout2.classList.add("off");
       features_default.allVidsFeatures[0].play();
       sectionFeatures.querySelectorAll(".vid-mobile-p")[0].play();
       setTimeout(function() {
@@ -781,15 +780,12 @@
     pauseWrapper.classList.remove("active");
     clearTimeout(instructions_default.instructionVidTimer);
     instructions_default.instructionVidTimer = null;
+    blackout.classList.remove("off");
     ActivateSectionVideo(
       "instructions",
       instructions_default.currentInstructionVid
     );
-    PrepSectionAndPlayVideo(
-      "instructions",
-      instructions_default.currentInstructionVid,
-      true
-    );
+    PlaySectionVideo("instructions");
     DeactivateActivateCurrentCtrlButtons(
       "instructions",
       instructions_default.currentInstructionVid

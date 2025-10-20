@@ -262,15 +262,17 @@ const MainCtrlBtnsInstructions = function () {
   clearTimeout(instructions.instructionVidTimer);
   instructions.instructionVidTimer = null;
   // global.FlashBlackout(BLACKOUT_STANDARD);
+  blackout.classList.remove("off");
   global.ActivateSectionVideo(
     "instructions",
     instructions.currentInstructionVid
   );
-  global.PrepSectionAndPlayVideo(
-    "instructions",
-    instructions.currentInstructionVid,
-    true
-  );
+  // global.PrepSectionAndPlayVideo(
+  //   "instructions",
+  //   instructions.currentInstructionVid,
+  //   true
+  // );
+  global.PlaySectionVideo("instructions");
   global.DeactivateActivateCurrentCtrlButtons(
     "instructions",
     instructions.currentInstructionVid

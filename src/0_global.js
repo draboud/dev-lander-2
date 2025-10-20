@@ -192,19 +192,8 @@ export const ActivateSectionVideo = function (vidName, vidIndex) {
     .querySelectorAll(".video-wrap.mobile-p")
     [vidIndex].classList.add("active");
 };
-export const ActivateSection = function (sectionIndex) {
-  if (!sectionIndex) sectionIndex = 0;
-  allSections.forEach(function (el) {
-    el.classList.remove("active");
-  });
-  document
-    .querySelectorAll(`.section_${activeSectionName}`)
-    [sectionIndex].classList.add("active");
-  if (!initializing) FlashBlackout(BLACKOUT_STANDARD);
-};
 export const DeactivateSectionVideos = function (sectionName) {
   if (!sectionName) {
-    blackout.classList.remove("off");
     activeSection.querySelectorAll(".video-wrap").forEach(function (el) {
       el.classList.remove("active");
     });
@@ -216,6 +205,16 @@ export const DeactivateSectionVideos = function (sectionName) {
         el.classList.remove("active");
       });
   }
+};
+export const ActivateSection = function (sectionIndex) {
+  if (!sectionIndex) sectionIndex = 0;
+  allSections.forEach(function (el) {
+    el.classList.remove("active");
+  });
+  document
+    .querySelectorAll(`.section_${activeSectionName}`)
+    [sectionIndex].classList.add("active");
+  if (!initializing) FlashBlackout(BLACKOUT_STANDARD);
 };
 export const PlaySectionVideo = function (vidName, vidIndex, pauseEnable) {
   if (pauseEnable) pauseWrapper.style.pointerEvents = "auto";
