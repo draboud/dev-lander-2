@@ -261,7 +261,7 @@ const MainCtrlBtnsInstructions = function () {
   global.pauseWrapper.classList.remove("active");
   clearTimeout(instructions.instructionVidTimer);
   instructions.instructionVidTimer = null;
-  global.FlashBlackout(BLACKOUT_STANDARD);
+  // global.FlashBlackout(BLACKOUT_STANDARD);
   global.ActivateSectionVideo(
     "instructions",
     instructions.currentInstructionVid
