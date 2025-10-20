@@ -272,7 +272,8 @@ const MainCtrlBtnsInstructions = function () {
   //   instructions.currentInstructionVid,
   //   true
   // );
-  global.PlaySectionVideo("instructions");
+  global.DeactivateActivateSectionImage();
+  global.PlaySectionVideo();
   global.DeactivateActivateCurrentCtrlButtons(
     "instructions",
     instructions.currentInstructionVid

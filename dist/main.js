@@ -104,10 +104,7 @@
     DeactivateActivateSectionImage();
     ResetSectionVideos();
     ActivateSectionVideo(vidName, vidIndex);
-    setTimeout(function() {
-      blackout2.classList.add("off");
-      PlaySectionVideo(vidName, vidIndex, pauseEnable);
-    }, 200);
+    PlaySectionVideo(vidName, vidIndex, pauseEnable);
   };
   var DeactivateActivateSectionText = function(textName, textIndex) {
     activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
@@ -785,7 +782,8 @@
       "instructions",
       instructions_default.currentInstructionVid
     );
-    PlaySectionVideo("instructions");
+    DeactivateActivateSectionImage();
+    PlaySectionVideo();
     DeactivateActivateCurrentCtrlButtons(
       "instructions",
       instructions_default.currentInstructionVid
