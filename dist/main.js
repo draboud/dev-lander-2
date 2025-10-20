@@ -105,7 +105,9 @@
     blackout.classList.remove("off");
     ResetSectionVideos();
     ActivateSectionVideo(vidName, vidIndex);
-    blackout.classList.add("off");
+    setTimeout(function() {
+      blackout.classList.remove("off");
+    }, 500);
     PlaySectionVideo(vidName, vidIndex, pauseEnable);
   };
   var DeactivateActivateSectionText = function(textName, textIndex) {
