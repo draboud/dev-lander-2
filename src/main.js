@@ -6,6 +6,8 @@ import {
   BLACKOUT_INIT,
   BLACKOUT_STANDARD,
   DELAY_BEFORE_FEATURE_TEXT,
+  DELAY_BEFORE_UI_START,
+  DELAY_BETWEEN_START_CLICK_AND_PLAY,
   INSTRUCTION_VIDS_LOOPING,
   NO_OF_INSTRUCTION_VIDS,
   PAUSE_AFTER_FEATURE_END,
@@ -30,8 +32,8 @@ const MainStartButton = function () {
       global.navBar.classList.add("active");
       global.DeactivateActivateSectionText("main");
       global.ctrlBtnWrapper.classList.add("active");
-    }, 2000);
-  }, 500);
+    }, DELAY_BEFORE_UI_START);
+  }, DELAY_BETWEEN_START_CLICK_AND_PLAY);
 };
 const MainAllNavLinks = function (navLink, dropdownIndex) {
   if (dropdownIndex) global.SetDropdownIndex(dropdownIndex);
@@ -58,6 +60,7 @@ const MainAllNavLinks = function (navLink, dropdownIndex) {
   clearTimeout(instructions.instructionVidTimer);
   features.featureTextTimer = null;
   features.featureVidTimer = null;
+  components.optsDropdown.classList.remove("active");
   instructions.instructionVidTimer = null;
   global.pauseWrapper.style.pointerEvents = "none";
   global.pauseWrapper.classList.remove("active");
@@ -169,6 +172,7 @@ const MainOptionsMenuDropdownClick = function (clickedBtnContent) {
     global.PrepSectionAndPlayVideo(global.currentViewName);
     components.ctrlBtnWrapperComponents.classList.remove("active");
   }
+  components.optsDropdown.classList.remove("active");
 };
 const MainTextImgBtn = function () {
   components.textImgBtnLabel === "image"
