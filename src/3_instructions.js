@@ -1,25 +1,27 @@
 import { BLACKOUT_EXTRA } from "./0_config";
-import * as global from "./0_globalVarsAndFunctions";
+import * as global from "./0_global";
 
 class instructions {
   //............................................................
   //............................................................
   //DEFINITIONS
-  instructionsSection = document.querySelector(".section_instructions");
-  allVidsInstructions = global.sectionInstructions.querySelectorAll(".vid");
-  allVidsInstructionsMobileP =
-    global.sectionInstructions.querySelectorAll(".vid-mobile-p");
-  allVidWrappersInstuctions =
-    global.sectionInstructions.querySelectorAll(".video-wrap");
-  allCtrlBtnsInstructions = global.sectionInstructions.querySelectorAll(
-    ".ctrl-btn.instructions"
-  );
+  allVidsSections = [...global.sectionsInstructions];
+  allVidsInstructions = [];
+  allVidsInstructionsMobileP = [];
   currentInstructionVid;
   instructionVidTimer;
   //............................................................
   //............................................................
   //EVENTS
   AddHandlerVidsInstructionsEnds = function (handler) {
+    [...global.sectionsInstructions].forEach((el) => {
+      el.querySelectorAll(".vid").forEach((el2) => {
+        this.allVidsInstructions.push(el2);
+      });
+      el.querySelectorAll(".vid-mobile-p").forEach((el3) => {
+        this.allVidsInstructionsMobileP.push(el3);
+      });
+    });
     this.allVidsInstructions.forEach(function (el) {
       el.addEventListener("ended", function () {
         global.pauseWrapper.style.pointerEvents = "none";

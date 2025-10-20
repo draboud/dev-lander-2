@@ -2,7 +2,7 @@
   // src/0_config.js
   var BLACKOUT_STANDARD = 50;
   var BLACKOUT_EXTRA = 150;
-  var BLACKOUT_INIT = 2500;
+  var BLACKOUT_INIT = 100;
   var DELAY_BEFORE_FEATURE_TEXT = 1e3;
   var PAUSE_AFTER_FEATURE_END = 1500;
   var NO_OF_INSTRUCTION_VIDS = 4;
@@ -13,7 +13,9 @@
   var COMP_BTNS_START_RANGE_B = 6;
   var COMP_BTNS_END_RANGE_B = 11;
 
-  // src/0_globalVarsAndFunctions.js
+  // src/0_global.js
+  var startButtonWrapper = document.querySelector(".start-btn-wrapper");
+  var startButton = document.querySelector(".start-btn");
   var navBar = document.querySelector(".nav_component");
   var navLinkFeatures = document.querySelector(
     ".nav_menu_link.features"
@@ -30,7 +32,7 @@
     ".nav_menu_link.instructions"
   );
   var navLinkDropdownMenu = document.querySelector(".nav_menu_dropdown");
-  var allNavLinkDropdownWraps = navLinkDropdownMenu.querySelectorAll(
+  var allNavLinkDropdownOpts = navLinkDropdownMenu.querySelectorAll(
     ".nav_menu_link-dropdown"
   );
   var dropdownIconBtn = document.querySelector(".dropdown-icon-wrap");
@@ -39,13 +41,14 @@
   var pauseWrapper = document.querySelector(".pause-wrapper");
   var sectionFeatures = document.querySelector(".section_features");
   var sectionComponents = document.querySelector(".section_components");
-  var sectionInstructions = document.querySelector(
+  var sectionsInstructions = document.querySelectorAll(
     ".section_instructions"
   );
+  var dropdownIndex = 0;
   var allSections = [
     sectionFeatures,
     sectionComponents,
-    sectionInstructions
+    ...sectionsInstructions
   ];
   var ctrlBtnWrapper = document.querySelector(".ctrl-btn-wrapper");
   var allCtrlBtns = document.querySelectorAll(".ctrl-btn");
@@ -65,6 +68,9 @@
   }
   function SetNavDropdownFlag(newValue) {
     navDropdownFlag = newValue;
+  }
+  function SetDropdownIndex(newValue) {
+    dropdownIndex = newValue;
   }
   function SetActiveSection(newValue) {
     activeSection = newValue;
@@ -91,6 +97,45 @@
     navDropdownFlag ? navLinkDropdownMenu.classList.remove("active") : navLinkDropdownMenu.classList.add("active");
     navDropdownFlag = !navDropdownFlag;
   };
+  var PrepSectionAndPlayVideo = function(vidName, vidIndex, pauseEnable) {
+    DeactivateActivateSectionText();
+    DeactivateActivateSectionImage();
+    ResetSectionVideos();
+    ActivateSectionVideo(vidName, vidIndex);
+    PlaySectionVideo(vidName, vidIndex, pauseEnable);
+  };
+  var DeactivateActivateSectionText = function(textName, textIndex) {
+    activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
+      el.classList.remove("active");
+      if (textName && el.classList.contains(textName)) {
+        el.classList.add("active");
+        if (textIndex || textIndex === 0) {
+          el.querySelectorAll(".text-wrapper").forEach(function(el2, index) {
+            el2.classList.remove("active");
+            if (index === textIndex) el2.classList.add("active");
+          });
+        }
+      }
+    });
+  };
+  var DeactivateActivateSectionImage = function(imgName, imgIndex) {
+    activeSection.querySelectorAll(".section-wrap-imgs").forEach(function(el) {
+      el.classList.remove("active");
+      if (imgName && el.classList.contains(imgName)) {
+        el.classList.add("active");
+        if (imgIndex || imgIndex === 0) {
+          el.querySelectorAll(".section-img").forEach(function(el2, index) {
+            el2.classList.remove("active");
+            if (index === imgIndex) el2.classList.add("active");
+          });
+          el.querySelectorAll(".section-img.mobile-p").forEach(function(el2, index) {
+            el2.classList.remove("active");
+            if (index === imgIndex) el2.classList.add("active");
+          });
+        }
+      }
+    });
+  };
   var ResetSectionVideos = function(sectionName, subsectionName, vidIndex) {
     if (sectionName === "all") {
       document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
@@ -114,28 +159,36 @@
       });
     }
   };
-  var DeactivateActivateSectionText = function(textName, textIndex) {
-    activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
-      el.classList.remove("active");
-      if (textName && el.classList.contains(textName)) {
-        el.classList.add("active");
-        if (textIndex || textIndex === 0) {
-          el.querySelectorAll(".text-wrapper").forEach(function(el2, index) {
-            el2.classList.remove("active");
-            if (index === textIndex) el2.classList.add("active");
-          });
-        }
-      }
-    });
+  var ActivateSectionVideo = function(vidName, vidIndex) {
+    DeactivateSectionVideos();
+    if (!vidIndex) vidIndex = 0;
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap")[vidIndex].classList.add("active");
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap.mobile-p")[vidIndex].classList.add("active");
   };
-  var ActivateSection = function() {
+  var ActivateSection = function(sectionIndex) {
+    if (!sectionIndex) sectionIndex = 0;
     allSections.forEach(function(el) {
       el.classList.remove("active");
-      if (el.classList[0].slice(8) === activeSectionName) {
-        el.classList.add("active");
-        if (!initializing) FlashBlackout(BLACKOUT_STANDARD);
-      }
     });
+    document.querySelectorAll(`.section_${activeSectionName}`)[sectionIndex].classList.add("active");
+    if (!initializing) FlashBlackout(BLACKOUT_STANDARD);
+  };
+  var DeactivateSectionVideos = function(sectionName) {
+    if (!sectionName) {
+      activeSection.querySelectorAll(".video-wrap").forEach(function(el) {
+        el.classList.remove("active");
+      });
+    } else {
+      document.querySelector(`.section_${sectionName}`).querySelectorAll(".video-wrap").forEach(function(el) {
+        el.classList.remove("active");
+      });
+    }
+  };
+  var PlaySectionVideo = function(vidName, vidIndex, pauseEnable) {
+    if (pauseEnable) pauseWrapper.style.pointerEvents = "auto";
+    if (!vidIndex) vidIndex = 0;
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap")[vidIndex].querySelector(".vid").play();
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap.mobile-p")[vidIndex].querySelector(".vid-mobile-p").play();
   };
   var ActivateSectionButtons = function() {
     allSectionBtnWrappers.forEach(function(el) {
@@ -150,47 +203,6 @@
       blackout.classList.add("off");
     }, timerVariable);
   };
-  var DeactivateActivateSectionImage = function(imgName, imgIndex) {
-    activeSection.querySelectorAll(".section-wrap-imgs").forEach(function(el) {
-      el.classList.remove("active");
-      if (imgName && el.classList.contains(imgName)) {
-        el.classList.add("active");
-        if (imgIndex || imgIndex === 0) {
-          el.querySelectorAll(".section-img").forEach(function(el2, index) {
-            el2.classList.remove("active");
-            if (index === imgIndex) el2.classList.add("active");
-          });
-          el.querySelectorAll(".section-img.mobile-p").forEach(function(el2, index) {
-            el2.classList.remove("active");
-            if (index === imgIndex) el2.classList.add("active");
-          });
-        }
-      }
-    });
-  };
-  var DeactivateSectionVideos = function(sectionName) {
-    if (!sectionName) {
-      activeSection.querySelectorAll(".video-wrap").forEach(function(el) {
-        el.classList.remove("active");
-      });
-    } else {
-      document.querySelector(`.section_${sectionName}`).querySelectorAll(".video-wrap").forEach(function(el) {
-        el.classList.remove("active");
-      });
-    }
-  };
-  var ActivateSectionVideo = function(vidName, vidIndex) {
-    DeactivateSectionVideos();
-    if (!vidIndex) vidIndex = 0;
-    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap")[vidIndex].classList.add("active");
-    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap.mobile-p")[vidIndex].classList.add("active");
-  };
-  var PlaySectionVideo = function(vidName, vidIndex, pauseEnable) {
-    if (pauseEnable) pauseWrapper.style.pointerEvents = "auto";
-    if (!vidIndex) vidIndex = 0;
-    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap")[vidIndex].querySelector(".vid").play();
-    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap.mobile-p")[vidIndex].querySelector(".vid-mobile-p").play();
-  };
   var DeactivateActivateCurrentCtrlButtons = function(sectionName, btnIndex) {
     document.querySelectorAll(`.ctrl-btn.${sectionName}`).forEach(function(el, index) {
       el.classList.remove("current", "hovered");
@@ -203,13 +215,6 @@
       el.classList.remove("active");
       if (index >= startIndex && index <= endIndex) el.classList.add("active");
     });
-  };
-  var PrepSectionAndPlayVideo = function(vidName, vidIndex, pauseEnable) {
-    DeactivateActivateSectionText();
-    DeactivateActivateSectionImage();
-    ResetSectionVideos();
-    ActivateSectionVideo(vidName, vidIndex);
-    PlaySectionVideo(vidName, vidIndex, pauseEnable);
   };
 
   // src/1_features.js
@@ -263,8 +268,9 @@
     ctrlBtnWrapperComponents = ctrlBtnWrapper.querySelector(
       ".section-wrap-btns.components"
     );
+    optsMenuWrapper = sectionComponents.querySelector(".opts-wrapper");
     optsMenuBtn = sectionComponents.querySelector(".opts-menu_btn");
-    optsMenu = sectionComponents.querySelector(".opts-menu");
+    optsDropdown = sectionComponents.querySelector(".opts-dropdown");
     dimmer = sectionComponents.querySelector(".dimmer");
     textImgBtn = sectionComponents.querySelector(".text-img-btn");
     textImgBtnLabel = "image";
@@ -282,13 +288,23 @@
         });
       });
     };
-    AddHandlerMenuBtn = function(handler) {
+    AddHandlerOptionsMenuWrapperHoverIn = function(handler) {
+      this.optsMenuWrapper.addEventListener("mouseenter", function() {
+        handler();
+      });
+    };
+    AddHandlerOptionsMenuWrapperHoverOut = function(handler) {
+      this.optsMenuWrapper.addEventListener("mouseleave", function() {
+        handler();
+      });
+    };
+    AddHandlerOptionsMenuBtnClick = function(handler) {
       this.optsMenuBtn.addEventListener("click", function() {
         handler();
       });
     };
-    AddHandlerMenuOptBtn = function(handler) {
-      this.optsMenu.addEventListener("click", function(e) {
+    AddHandlerOptionsMenuDropdownClick = function(handler) {
+      this.optsDropdown.addEventListener("click", function(e) {
         const clicked = e.target.closest(".opts-menu_link");
         const clickedBtnContent = clicked.textContent;
         if (!clicked) return;
@@ -361,19 +377,23 @@
     //............................................................
     //............................................................
     //DEFINITIONS
-    instructionsSection = document.querySelector(".section_instructions");
-    allVidsInstructions = sectionInstructions.querySelectorAll(".vid");
-    allVidsInstructionsMobileP = sectionInstructions.querySelectorAll(".vid-mobile-p");
-    allVidWrappersInstuctions = sectionInstructions.querySelectorAll(".video-wrap");
-    allCtrlBtnsInstructions = sectionInstructions.querySelectorAll(
-      ".ctrl-btn.instructions"
-    );
+    allVidsSections = [...sectionsInstructions];
+    allVidsInstructions = [];
+    allVidsInstructionsMobileP = [];
     currentInstructionVid;
     instructionVidTimer;
     //............................................................
     //............................................................
     //EVENTS
     AddHandlerVidsInstructionsEnds = function(handler) {
+      [...sectionsInstructions].forEach((el) => {
+        el.querySelectorAll(".vid").forEach((el2) => {
+          this.allVidsInstructions.push(el2);
+        });
+        el.querySelectorAll(".vid-mobile-p").forEach((el3) => {
+          this.allVidsInstructionsMobileP.push(el3);
+        });
+      });
       this.allVidsInstructions.forEach(function(el) {
         el.addEventListener("ended", function() {
           pauseWrapper.style.pointerEvents = "none";
@@ -414,9 +434,22 @@
   };
   var instructions_default = new instructions();
 
-  // src/0_navigation.js
+  // src/0_nav.js
   var navigation = class {
-    //******************************************************************
+    AddHandlerStartButton = function(handler) {
+      startButton.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerAllNavLinks = function(handler) {
+      allNavLinks.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+          const clicked = e.target.closest(".nav_menu_link");
+          if (!clicked) return;
+          handler(clicked);
+        });
+      });
+    };
     AddHandlerNavLinkInstructionsHoverIn = function(handler) {
       navLinkInstructions.addEventListener("mouseenter", function() {
         handler();
@@ -442,8 +475,8 @@
         handler();
       });
     };
-    AddHandlerAllNavLinkDropDownWraps = function(handler1, handler2, handler3) {
-      allNavLinkDropdownWraps.forEach(function(el) {
+    AddHandlerAllNavLinkDropdownOpts = function(handler1, handler2, handler3) {
+      allNavLinkDropdownOpts.forEach(function(el, index) {
         el.addEventListener("mouseenter", function() {
           handler1(el);
         });
@@ -451,11 +484,15 @@
           handler2(el);
         });
         el.addEventListener("click", function() {
-          handler3();
+          SetActiveSectionName(
+            el.parentElement.parentElement.querySelector(".nav_menu_link")
+          );
+          let dropdownIndex2 = index;
+          handler3(dropdownIndex2);
         });
       });
     };
-    AddHandlerDropDownIconBtn = function(handler) {
+    AddHandlerDropdownIconBtn = function(handler) {
       dropdownIconBtn.addEventListener("click", function() {
         handler();
       });
@@ -463,16 +500,6 @@
     AddHandlerNavBtnMobile = function(handler) {
       navButtonMobile.addEventListener("click", function() {
         handler();
-      });
-    };
-    //******************************************************************
-    AddHandlerAllNavLinks = function(handler) {
-      allNavLinks.forEach(function(el) {
-        el.addEventListener("click", function(e) {
-          const clicked = e.target.closest(".nav_menu_link");
-          if (!clicked) return;
-          handler(clicked);
-        });
       });
     };
     AddHandlerAllCtrlBtnsMouseEnter = function(handler) {
@@ -512,7 +539,7 @@
           DeactivateActivateCurrentCtrlButtons("features");
           break;
         case "components":
-          components_default.optsMenu.classList.remove("active");
+          components_default.optsMenuWrapper.classList.remove("active");
           DeactivateActivateSectionImage(currentViewName);
           [
             components_default.datasheetsAllWrapper,
@@ -543,20 +570,39 @@
       }
     };
   };
-  var navigation_default = new navigation();
+  var nav_default = new navigation();
 
   // src/main.js
-  console.log("main");
-  var MainAllNavLinks = function(navLink) {
+  var MainStartButton = function() {
+    startButtonWrapper.classList.remove("active");
+    setTimeout(function() {
+      DeactivateActivateSectionText();
+      blackout.classList.add("off");
+      features_default.allVidsFeatures[0].play();
+      sectionFeatures.querySelectorAll(".vid-mobile-p")[0].play();
+      setTimeout(function() {
+        navBar.classList.add("active");
+        DeactivateActivateSectionText("main");
+        ctrlBtnWrapper.classList.add("active");
+      }, 2e3);
+    }, 500);
+  };
+  var MainAllNavLinks = function(navLink, dropdownIndex2) {
+    if (dropdownIndex2) SetDropdownIndex(dropdownIndex2);
+    else {
+      dropdownIndex2 = 0;
+      SetDropdownIndex(0);
+    }
     SetActiveSectionName(navLink.classList[1]);
+    if (!dropdownIndex2) dropdownIndex2 = 0;
     SetActiveSection(
-      document.querySelector(`.section_${activeSectionName}`)
+      document.querySelectorAll(`.section_${activeSectionName}`)[dropdownIndex2]
     );
     navLinkDropdownMenu.classList.remove("active");
-    navigation_default.ActivateNavLink();
+    nav_default.ActivateNavLink();
     if (components_default.activeDatasheet)
       components_default.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
-    navigation_default.ResetSectionSpecial();
+    nav_default.ResetSectionSpecial();
     clearTimeout(features_default.featureTextTimer);
     clearTimeout(features_default.featureVidTimer);
     clearTimeout(instructions_default.instructionVidTimer);
@@ -568,7 +614,7 @@
     SetPauseFlag(false);
     ResetSectionVideos("all");
     DeactivateActivateSectionText("main");
-    ActivateSection();
+    ActivateSection(dropdownIndex2);
     ActivateSectionButtons();
     if (activeSectionName === "features") PlaySectionVideo("main");
   };
@@ -583,18 +629,21 @@
     navLinkDropdownMenu.classList.remove("active");
     SetNavDropdownFlag(false);
   };
-  var MainAllNavLinkDropDownWrapsHoverIn = function(navLinkDropdownBtn) {
+  var MainAllNavLinkDropDownOptsHoverIn = function(navLinkDropdownBtn) {
     navLinkDropdownBtn.classList.add("hovered");
   };
-  var MainAllNavLinkDropDownWrapsHoverOut = function(navLinkDropdownBtn) {
+  var MainAllNavLinkDropDownOptsHoverOut = function(navLinkDropdownBtn) {
     navLinkDropdownBtn.classList.remove("hovered");
   };
-  var MainAllNavLinkDropDownWrapsClick = function() {
+  var MainAllNavLinkDropDownOptsClick = function(dropdownIndex2) {
+    MainAllNavLinks(activeSectionName, dropdownIndex2);
     DeactivateActivateNavDropdown();
+    document.querySelector(".w-nav-overlay").style.display = "none";
+    document.querySelector(".nav_button.w-nav-button").classList.remove("w--open");
   };
   var MainDropDownIconBtn = function() {
     DeactivateActivateNavDropdown();
-    navigation_default.ActivateNavLinkDropdown(navLinkInstructions);
+    nav_default.ActivateNavLinkDropdown(navLinkInstructions);
   };
   var MainNavBtnMobile = function() {
     if (navDropdownFlag) DeactivateActivateNavDropdown();
@@ -630,36 +679,6 @@
       DeactivateActivateSectionText("feature", ctrlBtnIndex);
     }, DELAY_BEFORE_FEATURE_TEXT);
   };
-  var MainVidsComponentDatasheetsEnds = function() {
-    components_default.DisplayDataSheet();
-  };
-  var MainBackBtn = function() {
-    components_default.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
-    ResetSectionVideos("components", "datasheets");
-    DeactivateActivateSectionImage(currentViewName);
-    components_default.dimmer.classList.remove("active");
-    components_default.ActivateDeactivateDatasheetTextAndButtons(false);
-    DeactivateActivateSectionText("main");
-    ActivateSection();
-    ActivateSectionButtons();
-  };
-  var MainCtrlBtnsComponents = function() {
-    components_default.optsMenu.classList.remove("active");
-    PrepSectionAndPlayVideo("datasheets", ctrlBtnIndex);
-    components_default.ctrlBtnWrapperComponents.classList.remove("active");
-  };
-  var MainOptionsMenuBtn = function() {
-    components_default.optsMenu.classList.add("active");
-  };
-  var MainOptionsMenuOpt = function(clickedBtnContent) {
-    components_default.optsMenu.classList.remove("active");
-    if (currentViewName !== clickedBtnContent) {
-      SetCurrentViewName(clickedBtnContent);
-      components_default.optsMenuBtn.textContent = currentViewName;
-      PrepSectionAndPlayVideo(currentViewName);
-      components_default.ctrlBtnWrapperComponents.classList.remove("active");
-    }
-  };
   var MainComponentVidsViewsEnds = function() {
     DeactivateActivateSectionImage(currentViewName);
     DeactivateActivateSectionText("main");
@@ -673,11 +692,44 @@
     );
     components_default.ctrlBtnWrapperComponents.classList.add("active");
   };
+  var MainVidsComponentDatasheetsEnds = function() {
+    components_default.DisplayDataSheet();
+  };
+  var MainOptionsMenuShow = function() {
+    components_default.optsDropdown.classList.add("active");
+  };
+  var MainOptionsMenuHide = function() {
+    components_default.optsDropdown.classList.remove("active");
+  };
+  var MainOptionsMenuDropdownClick = function(clickedBtnContent) {
+    components_default.optsMenuWrapper.classList.remove("active");
+    if (currentViewName !== clickedBtnContent) {
+      SetCurrentViewName(clickedBtnContent);
+      components_default.optsMenuBtn.textContent = currentViewName;
+      PrepSectionAndPlayVideo(currentViewName);
+      components_default.ctrlBtnWrapperComponents.classList.remove("active");
+    }
+  };
   var MainTextImgBtn = function() {
     components_default.textImgBtnLabel === "image" ? components_default.textImgBtn.textContent = "text" : components_default.textImgBtn.textContent = "image";
     components_default.textImgBtnLabel = components_default.textImgBtn.textContent;
     components_default.activeDatasheet.querySelector(".comp-data-body-wrap").classList.toggle("active");
     components_default.dimmer.classList.toggle("active");
+  };
+  var MainBackBtn = function() {
+    components_default.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
+    ResetSectionVideos("components", "datasheets");
+    DeactivateActivateSectionImage(currentViewName);
+    components_default.dimmer.classList.remove("active");
+    components_default.ActivateDeactivateDatasheetTextAndButtons(false);
+    DeactivateActivateSectionText("main");
+    ActivateSection();
+    ActivateSectionButtons();
+  };
+  var MainCtrlBtnsComponents = function() {
+    components_default.optsMenuWrapper.classList.remove("active");
+    PrepSectionAndPlayVideo("datasheets", ctrlBtnIndex);
+    components_default.ctrlBtnWrapperComponents.classList.remove("active");
   };
   var MainInstructionsVidsEnds = function() {
     instructions_default.instructionVidTimer = setTimeout(function() {
@@ -707,12 +759,12 @@
   var MainVidsInstructionsPauseUnpause = function() {
     if (pauseFlag) {
       pauseWrapper.classList.add("active");
-      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid].pause();
-      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid].pause();
+      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].pause();
+      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].pause();
     } else {
       pauseWrapper.classList.remove("active");
-      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid].play();
-      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid].play();
+      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].play();
+      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].play();
     }
   };
   var MainCtrlBtnsInstructions = function() {
@@ -725,7 +777,6 @@
       "instructions",
       instructions_default.currentInstructionVid
     );
-    ResetSectionVideos();
     PrepSectionAndPlayVideo(
       "instructions",
       instructions_default.currentInstructionVid,
@@ -737,28 +788,31 @@
     );
   };
   var init = function() {
-    navigation_default.AddHandlerAllNavLinks(MainAllNavLinks);
-    navigation_default.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
-    navigation_default.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
-    navigation_default.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
-    navigation_default.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
-    navigation_default.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
-    navigation_default.AddHandlerAllNavLinkDropDownWraps(
-      MainAllNavLinkDropDownWrapsHoverIn,
-      MainAllNavLinkDropDownWrapsHoverOut,
-      MainAllNavLinkDropDownWrapsClick
+    nav_default.AddHandlerStartButton(MainStartButton);
+    nav_default.AddHandlerAllNavLinks(MainAllNavLinks);
+    nav_default.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
+    nav_default.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
+    nav_default.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
+    nav_default.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
+    nav_default.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
+    nav_default.AddHandlerAllNavLinkDropdownOpts(
+      MainAllNavLinkDropDownOptsHoverIn,
+      MainAllNavLinkDropDownOptsHoverOut,
+      MainAllNavLinkDropDownOptsClick
     );
-    navigation_default.AddHandlerDropDownIconBtn(MainDropDownIconBtn);
-    navigation_default.AddHandlerNavBtnMobile(MainNavBtnMobile);
+    nav_default.AddHandlerDropdownIconBtn(MainDropDownIconBtn);
+    nav_default.AddHandlerNavBtnMobile(MainNavBtnMobile);
     features_default.AddHandlerVidsFeaturesEnd(MainFeaturesVidsEnds);
     components_default.AddHandlerVidsComponentDatasheetsEnds(
       MainVidsComponentDatasheetsEnds
     );
-    navigation_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
-    navigation_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
+    nav_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
+    nav_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
     features_default.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
-    components_default.AddHandlerMenuBtn(MainOptionsMenuBtn);
-    components_default.AddHandlerMenuOptBtn(MainOptionsMenuOpt);
+    components_default.AddHandlerOptionsMenuBtnClick(MainOptionsMenuShow);
+    components_default.AddHandlerOptionsMenuWrapperHoverIn(MainOptionsMenuShow);
+    components_default.AddHandlerOptionsMenuWrapperHoverOut(MainOptionsMenuHide);
+    components_default.AddHandlerOptionsMenuDropdownClick(MainOptionsMenuDropdownClick);
     components_default.AddHandlerBackBtn(MainBackBtn);
     components_default.AddHandlerVidsComponentViewsEnds(MainComponentVidsViewsEnds);
     components_default.AddHandlerTextImgBtn(MainTextImgBtn);
@@ -772,16 +826,15 @@
   };
   init();
   window.addEventListener("load", function() {
-    navLinkInstructions.click();
     navLinkDropdownMenu.classList.remove("active");
+    navLinkInstructions.click();
     navLinkComponents.click();
     navLinkFeatures.click();
     this.setTimeout(function() {
-      navBar.classList.add("active");
-      ctrlBtnWrapper.classList.add("active");
+      ResetSectionVideos();
       SetInitializing(false);
       loader.classList.remove("active");
-      blackout.classList.add("off");
+      startButtonWrapper.classList.add("active");
     }, BLACKOUT_INIT);
   });
 })();

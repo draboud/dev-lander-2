@@ -7,7 +7,7 @@ import {
   COMP_BTNS_START_RANGE_A,
   COMP_BTNS_START_RANGE_B,
 } from "./0_config";
-import * as global from "./0_globalVarsAndFunctions";
+import * as global from "./0_global";
 import features from "./1_features";
 import components from "./2_components";
 import instructions from "./3_instructions";
@@ -15,7 +15,20 @@ import instructions from "./3_instructions";
 //.......................................................................
 //CLASS EVENTS
 class navigation {
-  //******************************************************************
+  AddHandlerStartButton = function (handler) {
+    global.startButton.addEventListener("click", function () {
+      handler();
+    });
+  };
+  AddHandlerAllNavLinks = function (handler) {
+    global.allNavLinks.forEach(function (el) {
+      el.addEventListener("click", function (e) {
+        const clicked = e.target.closest(".nav_menu_link");
+        if (!clicked) return;
+        handler(clicked);
+      });
+    });
+  };
   AddHandlerNavLinkInstructionsHoverIn = function (handler) {
     global.navLinkInstructions.addEventListener("mouseenter", function () {
       handler();
@@ -41,8 +54,8 @@ class navigation {
       handler();
     });
   };
-  AddHandlerAllNavLinkDropDownWraps = function (handler1, handler2, handler3) {
-    global.allNavLinkDropdownWraps.forEach(function (el) {
+  AddHandlerAllNavLinkDropdownOpts = function (handler1, handler2, handler3) {
+    global.allNavLinkDropdownOpts.forEach(function (el, index) {
       el.addEventListener("mouseenter", function () {
         handler1(el);
       });
@@ -50,11 +63,15 @@ class navigation {
         handler2(el);
       });
       el.addEventListener("click", function () {
-        handler3();
+        global.SetActiveSectionName(
+          el.parentElement.parentElement.querySelector(".nav_menu_link")
+        );
+        let dropdownIndex = index;
+        handler3(dropdownIndex);
       });
     });
   };
-  AddHandlerDropDownIconBtn = function (handler) {
+  AddHandlerDropdownIconBtn = function (handler) {
     global.dropdownIconBtn.addEventListener("click", function () {
       handler();
     });
@@ -62,16 +79,6 @@ class navigation {
   AddHandlerNavBtnMobile = function (handler) {
     global.navButtonMobile.addEventListener("click", function () {
       handler();
-    });
-  };
-  //******************************************************************
-  AddHandlerAllNavLinks = function (handler) {
-    global.allNavLinks.forEach(function (el) {
-      el.addEventListener("click", function (e) {
-        const clicked = e.target.closest(".nav_menu_link");
-        if (!clicked) return;
-        handler(clicked);
-      });
     });
   };
   AddHandlerAllCtrlBtnsMouseEnter = function (handler) {
@@ -111,7 +118,7 @@ class navigation {
         global.DeactivateActivateCurrentCtrlButtons("features");
         break;
       case "components":
-        components.optsMenu.classList.remove("active");
+        components.optsMenuWrapper.classList.remove("active");
         global.DeactivateActivateSectionImage(global.currentViewName);
         [
           components.datasheetsAllWrapper,
