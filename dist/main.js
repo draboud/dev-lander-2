@@ -102,15 +102,10 @@
   var PrepSectionAndPlayVideo = function(vidName, vidIndex, pauseEnable) {
     DeactivateActivateSectionText();
     DeactivateActivateSectionImage();
-    blackout.classList.remove("off");
-    setTimeout(function() {
-      ResetSectionVideos();
-      ActivateSectionVideo(vidName, vidIndex);
-    }, 200);
-    setTimeout(function() {
-      blackout.classList.remove("off");
-      PlaySectionVideo(vidName, vidIndex, pauseEnable);
-    }, 200);
+    ResetSectionVideos();
+    ActivateSectionVideo(vidName, vidIndex);
+    blackout.classList.add("off");
+    PlaySectionVideo(vidName, vidIndex, pauseEnable);
   };
   var DeactivateActivateSectionText = function(textName, textIndex) {
     activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
@@ -183,6 +178,7 @@
   };
   var DeactivateSectionVideos = function(sectionName) {
     if (!sectionName) {
+      blackout.classList.remove("off");
       activeSection.querySelectorAll(".video-wrap").forEach(function(el) {
         el.classList.remove("active");
       });
