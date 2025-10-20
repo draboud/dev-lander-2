@@ -1,7 +1,7 @@
 //............................................................
 //............................................................
 //IMPORTS
-import * as global from "./0_globalVarsAndFunctions";
+import * as global from "./0_global";
 //............................................................
 //............................................................
 //CLASS
@@ -29,8 +29,9 @@ class components {
   ctrlBtnWrapperComponents = global.ctrlBtnWrapper.querySelector(
     ".section-wrap-btns.components"
   );
+  optsMenuWrapper = global.sectionComponents.querySelector(".opts-wrapper");
   optsMenuBtn = global.sectionComponents.querySelector(".opts-menu_btn");
-  optsMenu = global.sectionComponents.querySelector(".opts-menu");
+  optsDropdown = global.sectionComponents.querySelector(".opts-dropdown");
   dimmer = global.sectionComponents.querySelector(".dimmer");
   textImgBtn = global.sectionComponents.querySelector(".text-img-btn");
   textImgBtnLabel = "image";
@@ -48,24 +49,23 @@ class components {
       });
     });
   };
-  AddHandlerOptionsMenuHoverIn = function (handler) {
-    this.optsMenuBtn.addEventListener("mouseenter", function () {
+  AddHandlerOptionsMenuWrapperHoverIn = function (handler) {
+    this.optsMenuWrapper.addEventListener("mouseenter", function () {
       handler();
     });
   };
-  AddHandlerOptionsMenuHoverOut = function (handler) {
-    this.optsMenuBtn.addEventListener("mouseleave", function () {
+  AddHandlerOptionsMenuWrapperHoverOut = function (handler) {
+    this.optsMenuWrapper.addEventListener("mouseleave", function () {
       handler();
     });
   };
-  AddHandlerOptionsMenuClick = function (handler) {
+  AddHandlerOptionsMenuBtnClick = function (handler) {
     this.optsMenuBtn.addEventListener("click", function () {
       handler();
     });
   };
-  AddHandlerOptionsMenuOpt = function (handler) {
-    this.optsMenu.addEventListener("click", function (e) {
-      console.log("tester");
+  AddHandlerOptionsMenuDropdownClick = function (handler) {
+    this.optsDropdown.addEventListener("click", function (e) {
       const clicked = e.target.closest(".opts-menu_link");
       const clickedBtnContent = clicked.textContent;
       if (!clicked) return;

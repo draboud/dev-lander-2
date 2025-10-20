@@ -7,7 +7,7 @@ import {
   COMP_BTNS_START_RANGE_A,
   COMP_BTNS_START_RANGE_B,
 } from "./0_config";
-import * as global from "./0_globalVarsAndFunctions";
+import * as global from "./0_global";
 import features from "./1_features";
 import components from "./2_components";
 import instructions from "./3_instructions";
@@ -54,7 +54,7 @@ class navigation {
       handler();
     });
   };
-  AddHandlerAllNavLinkDropDownOpts = function (handler1, handler2, handler3) {
+  AddHandlerAllNavLinkDropdownOpts = function (handler1, handler2, handler3) {
     global.allNavLinkDropdownOpts.forEach(function (el, index) {
       el.addEventListener("mouseenter", function () {
         handler1(el);
@@ -71,7 +71,7 @@ class navigation {
       });
     });
   };
-  AddHandlerDropDownIconBtn = function (handler) {
+  AddHandlerDropdownIconBtn = function (handler) {
     global.dropdownIconBtn.addEventListener("click", function () {
       handler();
     });
@@ -118,7 +118,7 @@ class navigation {
         global.DeactivateActivateCurrentCtrlButtons("features");
         break;
       case "components":
-        components.optsMenu.classList.remove("active");
+        components.optsMenuWrapper.classList.remove("active");
         global.DeactivateActivateSectionImage(global.currentViewName);
         [
           components.datasheetsAllWrapper,

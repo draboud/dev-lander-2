@@ -2,7 +2,7 @@
   // src/0_config.js
   var BLACKOUT_STANDARD = 50;
   var BLACKOUT_EXTRA = 150;
-  var BLACKOUT_INIT = 2500;
+  var BLACKOUT_INIT = 100;
   var DELAY_BEFORE_FEATURE_TEXT = 1e3;
   var PAUSE_AFTER_FEATURE_END = 1500;
   var NO_OF_INSTRUCTION_VIDS = 4;
@@ -13,7 +13,7 @@
   var COMP_BTNS_START_RANGE_B = 6;
   var COMP_BTNS_END_RANGE_B = 11;
 
-  // src/0_globalVarsAndFunctions.js
+  // src/0_global.js
   var startButtonWrapper = document.querySelector(".start-btn-wrapper");
   var startButton = document.querySelector(".start-btn");
   var navBar = document.querySelector(".nav_component");
@@ -268,8 +268,9 @@
     ctrlBtnWrapperComponents = ctrlBtnWrapper.querySelector(
       ".section-wrap-btns.components"
     );
+    optsMenuWrapper = sectionComponents.querySelector(".opts-wrapper");
     optsMenuBtn = sectionComponents.querySelector(".opts-menu_btn");
-    optsMenu = sectionComponents.querySelector(".opts-menu");
+    optsDropdown = sectionComponents.querySelector(".opts-dropdown");
     dimmer = sectionComponents.querySelector(".dimmer");
     textImgBtn = sectionComponents.querySelector(".text-img-btn");
     textImgBtnLabel = "image";
@@ -287,24 +288,23 @@
         });
       });
     };
-    AddHandlerOptionsMenuHoverIn = function(handler) {
-      this.optsMenuBtn.addEventListener("mouseenter", function() {
+    AddHandlerOptionsMenuWrapperHoverIn = function(handler) {
+      this.optsMenuWrapper.addEventListener("mouseenter", function() {
         handler();
       });
     };
-    AddHandlerOptionsMenuHoverOut = function(handler) {
-      this.optsMenuBtn.addEventListener("mouseleave", function() {
+    AddHandlerOptionsMenuWrapperHoverOut = function(handler) {
+      this.optsMenuWrapper.addEventListener("mouseleave", function() {
         handler();
       });
     };
-    AddHandlerOptionsMenuClick = function(handler) {
+    AddHandlerOptionsMenuBtnClick = function(handler) {
       this.optsMenuBtn.addEventListener("click", function() {
         handler();
       });
     };
-    AddHandlerOptionsMenuOpt = function(handler) {
-      this.optsMenu.addEventListener("click", function(e) {
-        console.log("tester");
+    AddHandlerOptionsMenuDropdownClick = function(handler) {
+      this.optsDropdown.addEventListener("click", function(e) {
         const clicked = e.target.closest(".opts-menu_link");
         const clickedBtnContent = clicked.textContent;
         if (!clicked) return;
@@ -434,7 +434,7 @@
   };
   var instructions_default = new instructions();
 
-  // src/0_navigation.js
+  // src/0_nav.js
   var navigation = class {
     AddHandlerStartButton = function(handler) {
       startButton.addEventListener("click", function() {
@@ -475,7 +475,7 @@
         handler();
       });
     };
-    AddHandlerAllNavLinkDropDownOpts = function(handler1, handler2, handler3) {
+    AddHandlerAllNavLinkDropdownOpts = function(handler1, handler2, handler3) {
       allNavLinkDropdownOpts.forEach(function(el, index) {
         el.addEventListener("mouseenter", function() {
           handler1(el);
@@ -492,7 +492,7 @@
         });
       });
     };
-    AddHandlerDropDownIconBtn = function(handler) {
+    AddHandlerDropdownIconBtn = function(handler) {
       dropdownIconBtn.addEventListener("click", function() {
         handler();
       });
@@ -539,7 +539,7 @@
           DeactivateActivateCurrentCtrlButtons("features");
           break;
         case "components":
-          components_default.optsMenu.classList.remove("active");
+          components_default.optsMenuWrapper.classList.remove("active");
           DeactivateActivateSectionImage(currentViewName);
           [
             components_default.datasheetsAllWrapper,
@@ -570,12 +570,10 @@
       }
     };
   };
-  var navigation_default = new navigation();
+  var nav_default = new navigation();
 
   // src/main.js
-  console.log("TEST");
   var MainStartButton = function() {
-    console.log("start button pressed");
     startButtonWrapper.classList.remove("active");
     setTimeout(function() {
       DeactivateActivateSectionText();
@@ -601,10 +599,10 @@
       document.querySelectorAll(`.section_${activeSectionName}`)[dropdownIndex2]
     );
     navLinkDropdownMenu.classList.remove("active");
-    navigation_default.ActivateNavLink();
+    nav_default.ActivateNavLink();
     if (components_default.activeDatasheet)
       components_default.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
-    navigation_default.ResetSectionSpecial();
+    nav_default.ResetSectionSpecial();
     clearTimeout(features_default.featureTextTimer);
     clearTimeout(features_default.featureVidTimer);
     clearTimeout(instructions_default.instructionVidTimer);
@@ -645,7 +643,7 @@
   };
   var MainDropDownIconBtn = function() {
     DeactivateActivateNavDropdown();
-    navigation_default.ActivateNavLinkDropdown(navLinkInstructions);
+    nav_default.ActivateNavLinkDropdown(navLinkInstructions);
   };
   var MainNavBtnMobile = function() {
     if (navDropdownFlag) DeactivateActivateNavDropdown();
@@ -697,17 +695,14 @@
   var MainVidsComponentDatasheetsEnds = function() {
     components_default.DisplayDataSheet();
   };
-  var MainOptionsMenuClick = function() {
-    components_default.optsMenu.classList.add("active");
+  var MainOptionsMenuShow = function() {
+    components_default.optsDropdown.classList.add("active");
   };
-  var MainOptionsMenuHoverIn = function() {
-    components_default.optsMenu.classList.add("active");
+  var MainOptionsMenuHide = function() {
+    components_default.optsDropdown.classList.remove("active");
   };
-  var MainOptionsMenuHoverOut = function() {
-    components_default.optsMenu.classList.remove("active");
-  };
-  var MainOptionsMenuOpt = function(clickedBtnContent) {
-    components_default.optsMenu.classList.remove("active");
+  var MainOptionsMenuDropdownClick = function(clickedBtnContent) {
+    components_default.optsMenuWrapper.classList.remove("active");
     if (currentViewName !== clickedBtnContent) {
       SetCurrentViewName(clickedBtnContent);
       components_default.optsMenuBtn.textContent = currentViewName;
@@ -732,7 +727,7 @@
     ActivateSectionButtons();
   };
   var MainCtrlBtnsComponents = function() {
-    components_default.optsMenu.classList.remove("active");
+    components_default.optsMenuWrapper.classList.remove("active");
     PrepSectionAndPlayVideo("datasheets", ctrlBtnIndex);
     components_default.ctrlBtnWrapperComponents.classList.remove("active");
   };
@@ -782,7 +777,6 @@
       "instructions",
       instructions_default.currentInstructionVid
     );
-    ResetSectionVideos();
     PrepSectionAndPlayVideo(
       "instructions",
       instructions_default.currentInstructionVid,
@@ -794,31 +788,31 @@
     );
   };
   var init = function() {
-    navigation_default.AddHandlerStartButton(MainStartButton);
-    navigation_default.AddHandlerAllNavLinks(MainAllNavLinks);
-    navigation_default.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
-    navigation_default.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
-    navigation_default.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
-    navigation_default.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
-    navigation_default.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
-    navigation_default.AddHandlerAllNavLinkDropDownOpts(
+    nav_default.AddHandlerStartButton(MainStartButton);
+    nav_default.AddHandlerAllNavLinks(MainAllNavLinks);
+    nav_default.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
+    nav_default.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
+    nav_default.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
+    nav_default.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
+    nav_default.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
+    nav_default.AddHandlerAllNavLinkDropdownOpts(
       MainAllNavLinkDropDownOptsHoverIn,
       MainAllNavLinkDropDownOptsHoverOut,
       MainAllNavLinkDropDownOptsClick
     );
-    navigation_default.AddHandlerDropDownIconBtn(MainDropDownIconBtn);
-    navigation_default.AddHandlerNavBtnMobile(MainNavBtnMobile);
+    nav_default.AddHandlerDropdownIconBtn(MainDropDownIconBtn);
+    nav_default.AddHandlerNavBtnMobile(MainNavBtnMobile);
     features_default.AddHandlerVidsFeaturesEnd(MainFeaturesVidsEnds);
     components_default.AddHandlerVidsComponentDatasheetsEnds(
       MainVidsComponentDatasheetsEnds
     );
-    navigation_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
-    navigation_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
+    nav_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
+    nav_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
     features_default.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
-    components_default.AddHandlerOptionsMenuClick(MainOptionsMenuClick);
-    components_default.AddHandlerOptionsMenuHoverIn(MainOptionsMenuHoverIn);
-    components_default.AddHandlerOptionsMenuHoverOut(MainOptionsMenuHoverOut);
-    components_default.AddHandlerOptionsMenuOpt(MainOptionsMenuOpt);
+    components_default.AddHandlerOptionsMenuBtnClick(MainOptionsMenuShow);
+    components_default.AddHandlerOptionsMenuWrapperHoverIn(MainOptionsMenuShow);
+    components_default.AddHandlerOptionsMenuWrapperHoverOut(MainOptionsMenuHide);
+    components_default.AddHandlerOptionsMenuDropdownClick(MainOptionsMenuDropdownClick);
     components_default.AddHandlerBackBtn(MainBackBtn);
     components_default.AddHandlerVidsComponentViewsEnds(MainComponentVidsViewsEnds);
     components_default.AddHandlerTextImgBtn(MainTextImgBtn);

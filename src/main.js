@@ -1,4 +1,4 @@
-console.log("TEST");
+// console.log("Oct 20, 2025");
 //.......................................................................
 //.......................................................................
 //IMPORTS
@@ -11,8 +11,8 @@ import {
   PAUSE_AFTER_FEATURE_END,
   PAUSE_BETWEEN_INSTRUCTION_VIDS,
 } from "./0_config";
-import * as global from "./0_globalVarsAndFunctions";
-import navigation from "./0_navigation";
+import * as global from "./0_global";
+import navigation from "./0_nav";
 import features from "./1_features";
 import components from "./2_components";
 import instructions from "./3_instructions";
@@ -20,7 +20,6 @@ import instructions from "./3_instructions";
 //.......................................................................
 //NAVIGATION
 const MainStartButton = function () {
-  console.log("start button pressed");
   global.startButtonWrapper.classList.remove("active");
   setTimeout(function () {
     global.DeactivateActivateSectionText();
@@ -156,17 +155,14 @@ const MainComponentVidsViewsEnds = function () {
 const MainVidsComponentDatasheetsEnds = function () {
   components.DisplayDataSheet();
 };
-const MainOptionsMenuClick = function () {
-  components.optsMenu.classList.add("active");
+const MainOptionsMenuShow = function () {
+  components.optsDropdown.classList.add("active");
 };
-const MainOptionsMenuHoverIn = function () {
-  components.optsMenu.classList.add("active");
+const MainOptionsMenuHide = function () {
+  components.optsDropdown.classList.remove("active");
 };
-const MainOptionsMenuHoverOut = function () {
-  components.optsMenu.classList.remove("active");
-};
-const MainOptionsMenuOpt = function (clickedBtnContent) {
-  components.optsMenu.classList.remove("active");
+const MainOptionsMenuDropdownClick = function (clickedBtnContent) {
+  components.optsMenuWrapper.classList.remove("active");
   if (global.currentViewName !== clickedBtnContent) {
     global.SetCurrentViewName(clickedBtnContent);
     components.optsMenuBtn.textContent = global.currentViewName;
@@ -195,7 +191,7 @@ const MainBackBtn = function () {
   global.ActivateSectionButtons();
 };
 const MainCtrlBtnsComponents = function () {
-  components.optsMenu.classList.remove("active");
+  components.optsMenuWrapper.classList.remove("active");
   global.PrepSectionAndPlayVideo("datasheets", global.ctrlBtnIndex);
   components.ctrlBtnWrapperComponents.classList.remove("active");
 };
@@ -266,7 +262,6 @@ const MainCtrlBtnsInstructions = function () {
     "instructions",
     instructions.currentInstructionVid
   );
-  global.ResetSectionVideos();
   global.PrepSectionAndPlayVideo(
     "instructions",
     instructions.currentInstructionVid,
@@ -288,12 +283,12 @@ const init = function () {
   navigation.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
   navigation.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
   navigation.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
-  navigation.AddHandlerAllNavLinkDropDownOpts(
+  navigation.AddHandlerAllNavLinkDropdownOpts(
     MainAllNavLinkDropDownOptsHoverIn,
     MainAllNavLinkDropDownOptsHoverOut,
     MainAllNavLinkDropDownOptsClick
   );
-  navigation.AddHandlerDropDownIconBtn(MainDropDownIconBtn);
+  navigation.AddHandlerDropdownIconBtn(MainDropDownIconBtn);
   navigation.AddHandlerNavBtnMobile(MainNavBtnMobile);
   features.AddHandlerVidsFeaturesEnd(MainFeaturesVidsEnds);
   components.AddHandlerVidsComponentDatasheetsEnds(
@@ -302,10 +297,10 @@ const init = function () {
   navigation.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
   navigation.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
   features.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
-  components.AddHandlerOptionsMenuClick(MainOptionsMenuClick);
-  components.AddHandlerOptionsMenuHoverIn(MainOptionsMenuHoverIn);
-  components.AddHandlerOptionsMenuHoverOut(MainOptionsMenuHoverOut);
-  components.AddHandlerOptionsMenuOpt(MainOptionsMenuOpt);
+  components.AddHandlerOptionsMenuBtnClick(MainOptionsMenuShow);
+  components.AddHandlerOptionsMenuWrapperHoverIn(MainOptionsMenuShow);
+  components.AddHandlerOptionsMenuWrapperHoverOut(MainOptionsMenuHide);
+  components.AddHandlerOptionsMenuDropdownClick(MainOptionsMenuDropdownClick);
   components.AddHandlerBackBtn(MainBackBtn);
   components.AddHandlerVidsComponentViewsEnds(MainComponentVidsViewsEnds);
   components.AddHandlerTextImgBtn(MainTextImgBtn);
@@ -328,16 +323,8 @@ window.addEventListener("load", function () {
   global.navLinkFeatures.click();
   this.setTimeout(function () {
     global.ResetSectionVideos();
-    // global.navBar.classList.add("active");
-    // global.ctrlBtnWrapper.classList.add("active");
     global.SetInitializing(false);
     global.loader.classList.remove("active");
-    // global.blackout.classList.add("off");
     global.startButtonWrapper.classList.add("active");
   }, BLACKOUT_INIT);
-  // this.setTimeout(function () {
-  //   MainAllNavLinks(document.querySelector(".nav_menu_link.features"));
-  //   console.log("test");
-  // }, 5000);
-  // global.PlaySectionVideo("features");
 });

@@ -1,6 +1,6 @@
 export const BLACKOUT_STANDARD = 50;
 export const BLACKOUT_EXTRA = 150;
-export const BLACKOUT_INIT = 2500;
+export const BLACKOUT_INIT = 100;
 export const DELAY_BEFORE_FEATURE_TEXT = 1000;
 export const PAUSE_AFTER_FEATURE_END = 1500;
 export const NO_OF_INSTRUCTION_VIDS = 4;

@@ -1,5 +1,5 @@
 import { BLACKOUT_EXTRA } from "./0_config";
-import * as global from "./0_globalVarsAndFunctions";
+import * as global from "./0_global";
 
 class instructions {
   //............................................................
@@ -39,7 +39,6 @@ class instructions {
   };
   AddHandlerCtrlBtnWrapperInstructions = function (handler) {
     global.ctrlBtnWrapper.addEventListener("click", (e) => {
-      // console.log(global.activeSectionInstructions);
       const clicked = e.target.closest(".ctrl-btn.instructions");
       if (!clicked) return;
       const parentElement = clicked.parentElement;
