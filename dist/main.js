@@ -107,7 +107,7 @@
     blackout.classList.add("off");
     setTimeout(function() {
       PlaySectionVideo(vidName, vidIndex, pauseEnable);
-    }, 100);
+    }, 500);
   };
   var DeactivateActivateSectionText = function(textName, textIndex) {
     activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {

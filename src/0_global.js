@@ -109,7 +109,7 @@ export const PrepSectionAndPlayVideo = function (
   blackout.classList.add("off");
   setTimeout(function () {
     PlaySectionVideo(vidName, vidIndex, pauseEnable);
-  }, 100);
+  }, 500);
 };
 export const DeactivateActivateSectionText = function (textName, textIndex) {
   activeSection.querySelectorAll(".section-wrap-text").forEach(function (el) {
