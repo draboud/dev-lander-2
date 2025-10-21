@@ -145,18 +145,22 @@
     if (sectionName === "all") {
       document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
         el.pause();
+        el.currentTime = 0;
       });
     } else if (!sectionName) {
       activeSection.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
         el.pause();
+        el.currentTime = 0;
       });
     } else if (sectionName && !subsectionName) {
       document.querySelector(`.section_${sectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
         el.pause();
+        el.currentTime = 0;
       });
     } else if (sectionName && subsectionName) {
       document.querySelector(`.section_${sectionName}`).querySelector(`.section-wrap-vids.${subsectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
         el.pause();
+        el.currentTime = 0;
       });
     }
   };
