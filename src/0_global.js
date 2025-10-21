@@ -104,7 +104,7 @@ export const PrepSectionAndPlayVideo = function (
 ) {
   DeactivateActivateSectionText();
   DeactivateActivateSectionImage();
-  // ResetSectionVideos();
+  ResetSectionVideos();
   ActivateSectionVideo(vidName, vidIndex);
   setTimeout(function () {
     PlaySectionVideo(vidName, vidIndex, pauseEnable);
@@ -153,12 +153,12 @@ export const ResetSectionVideos = function (
 ) {
   if (sectionName === "all") {
     document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function (el) {
-      el.currentTime = 0;
+      // el.currentTime = 0;
       el.pause();
     });
   } else if (!sectionName) {
     activeSection.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function (el) {
-      el.currentTime = 0;
+      // el.currentTime = 0;
       el.pause();
     });
   } else if (sectionName && !subsectionName) {
@@ -166,7 +166,7 @@ export const ResetSectionVideos = function (
       .querySelector(`.section_${sectionName}`)
       .querySelectorAll(`.vid,.vid-mobile-p`)
       .forEach(function (el) {
-        el.currentTime = 0;
+        // el.currentTime = 0;
         el.pause();
       });
   } else if (sectionName && subsectionName) {
@@ -175,7 +175,7 @@ export const ResetSectionVideos = function (
       .querySelector(`.section-wrap-vids.${subsectionName}`)
       .querySelectorAll(`.vid,.vid-mobile-p`)
       .forEach(function (el) {
-        el.currentTime = 0;
+        // el.currentTime = 0;
         el.pause();
       });
   }
