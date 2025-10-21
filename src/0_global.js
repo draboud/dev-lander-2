@@ -154,12 +154,16 @@ export const ResetSectionVideos = function (
   if (sectionName === "all") {
     document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function (el) {
       el.pause();
-      el.currentTime = 0;
+      setTimeout(function () {
+        el.currentTime = 0;
+      }, 300);
     });
   } else if (!sectionName) {
     activeSection.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function (el) {
       el.pause();
-      el.currentTime = 0;
+      setTimeout(function () {
+        el.currentTime = 0;
+      }, 300);
     });
   } else if (sectionName && !subsectionName) {
     document
@@ -167,7 +171,9 @@ export const ResetSectionVideos = function (
       .querySelectorAll(`.vid,.vid-mobile-p`)
       .forEach(function (el) {
         el.pause();
-        el.currentTime = 0;
+        setTimeout(function () {
+          el.currentTime = 0;
+        }, 300);
       });
   } else if (sectionName && subsectionName) {
     document
@@ -176,7 +182,9 @@ export const ResetSectionVideos = function (
       .querySelectorAll(`.vid,.vid-mobile-p`)
       .forEach(function (el) {
         el.pause();
-        el.currentTime = 0;
+        setTimeout(function () {
+          el.currentTime = 0;
+        }, 300);
       });
   }
 };
