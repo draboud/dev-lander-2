@@ -10,6 +10,7 @@
   var NO_OF_INSTRUCTION_VIDS = 4;
   var PAUSE_BETWEEN_INSTRUCTION_VIDS = 1e3;
   var INSTRUCTION_VIDS_LOOPING = true;
+  var DELAY_BEFORE_VID_REWIND = 20;
   var COMP_BTNS_START_RANGE_A = 0;
   var COMP_BTNS_END_RANGE_A = 5;
   var COMP_BTNS_START_RANGE_B = 6;
@@ -147,28 +148,28 @@
         el.pause();
         setTimeout(function() {
           el.currentTime = 0;
-        }, 300);
+        }, DELAY_BEFORE_VID_REWIND);
       });
     } else if (!sectionName) {
       activeSection.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
         el.pause();
         setTimeout(function() {
           el.currentTime = 0;
-        }, 300);
+        }, DELAY_BEFORE_VID_REWIND);
       });
     } else if (sectionName && !subsectionName) {
       document.querySelector(`.section_${sectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
         el.pause();
         setTimeout(function() {
           el.currentTime = 0;
-        }, 300);
+        }, DELAY_BEFORE_VID_REWIND);
       });
     } else if (sectionName && subsectionName) {
       document.querySelector(`.section_${sectionName}`).querySelector(`.section-wrap-vids.${subsectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
         el.pause();
         setTimeout(function() {
           el.currentTime = 0;
-        }, 300);
+        }, DELAY_BEFORE_VID_REWIND);
       });
     }
   };
