@@ -1,2 +1,852 @@
-(()=>{var K=document.querySelector(".start-btn-wrapper"),at=document.querySelector(".start-btn"),it=document.querySelector(".nav_component"),rt=document.querySelector(".nav_menu_link.features"),ct=document.querySelector(".nav_menu_link.components"),L=document.querySelector(".nav_menu_link.instructions"),T=document.querySelectorAll(".nav_menu_link"),lt=document.querySelector(".nav_button"),re=document.querySelector(".nav_menu_link.instructions"),v=document.querySelector(".nav_menu_dropdown"),st=v.querySelectorAll(".nav_menu_link-dropdown"),ut=document.querySelector(".dropdown-icon-wrap"),dt=document.querySelector(".loader-text"),D=document.querySelector(".blackout"),A=document.querySelector(".pause-wrapper"),N=document.querySelector(".section_features"),s=document.querySelector(".section_components"),P=document.querySelectorAll(".section_instructions"),_=0,Bt=[N,s,...P],c=document.querySelector(".ctrl-btn-wrapper"),Y=document.querySelectorAll(".ctrl-btn"),Dt=document.querySelectorAll(".section-wrap-btns"),X=c.querySelector(".ctrl-btn.back"),pt=!0,B=!1,g=document.querySelector(".section_features"),m=g.classList[0].slice(8),u="view-a",V=!1,b,h,q;function vt(e){pt=e}function z(e){B=e}function j(e){_=e}function mt(e){g=e}function U(e){m=e}function ft(e){u=e}function w(e){V=e}function I(e){h=e}function C(e){q=e}function $(e){b=e}var M=function(){B?v.classList.remove("active"):v.classList.add("active"),B=!B},R=function(e,t,n){f(),d(),H(),y(e,t),setTimeout(function(){O(e,t,n),D.classList.add("off")},200)},f=function(e,t){g.querySelectorAll(".section-wrap-text").forEach(function(n){n.classList.remove("active"),e&&n.classList.contains(e)&&(n.classList.add("active"),(t||t===0)&&n.querySelectorAll(".text-wrapper").forEach(function(o,r){o.classList.remove("active"),r===t&&o.classList.add("active")}))})},d=function(e,t){g.querySelectorAll(".section-wrap-imgs").forEach(function(n){n.classList.remove("active"),e&&n.classList.contains(e)&&(n.classList.add("active"),(t||t===0)&&(n.querySelectorAll(".section-img").forEach(function(o,r){o.classList.remove("active"),r===t&&o.classList.add("active")}),n.querySelectorAll(".section-img.mobile-p").forEach(function(o,r){o.classList.remove("active"),r===t&&o.classList.add("active")})))})},H=function(e,t,n){e==="all"?document.querySelectorAll(".vid,.vid-mobile-p").forEach(function(o){o.pause(),setTimeout(function(){o.currentTime=0},100)}):e?e&&!t?document.querySelector(`.section_${e}`).querySelectorAll(".vid,.vid-mobile-p").forEach(function(o){o.pause(),setTimeout(function(){o.currentTime=0},100)}):e&&t&&document.querySelector(`.section_${e}`).querySelector(`.section-wrap-vids.${t}`).querySelectorAll(".vid,.vid-mobile-p").forEach(function(o){o.pause(),setTimeout(function(){o.currentTime=0},100)}):g.querySelectorAll(".vid,.vid-mobile-p").forEach(function(o){o.pause(),setTimeout(function(){o.currentTime=0},100)})},y=function(e,t){Q(),t||(t=0),g.querySelector(`.section-wrap-vids.${e}`).querySelectorAll(".video-wrap")[t].classList.add("active"),g.querySelector(`.section-wrap-vids.${e}`).querySelectorAll(".video-wrap.mobile-p")[t].classList.add("active")},J=function(e){e||(e=0),Bt.forEach(function(t){t.classList.remove("active")}),document.querySelectorAll(`.section_${m}`)[e].classList.add("active"),pt||E(50)},Q=function(e){e?document.querySelector(`.section_${e}`).querySelectorAll(".video-wrap").forEach(function(t){t.classList.remove("active")}):g.querySelectorAll(".video-wrap").forEach(function(t){t.classList.remove("active")})},O=function(e,t,n){n&&(A.style.pointerEvents="auto"),t||(t=0),g.querySelector(`.section-wrap-vids.${e}`).querySelectorAll(".video-wrap")[t].querySelector(".vid").play(),g.querySelector(`.section-wrap-vids.${e}`).querySelectorAll(".video-wrap.mobile-p")[t].querySelector(".vid-mobile-p").play()},Z=function(){Dt.forEach(function(e){e.classList.remove("active")}),c.querySelector(`.section-wrap-btns.${m}`).classList.add("active"),X.classList.remove("active")},E=function(e){D.classList.remove("off"),setTimeout(function(){D.classList.add("off")},e)},S=function(e,t){document.querySelectorAll(`.ctrl-btn.${e}`).forEach(function(n,o){n.classList.remove("current","hovered"),(t||t===0)&&o===t&&n.classList.add("current")})},G=function(e,t,n){c.querySelector(`.section-wrap-btns.${e}`).querySelectorAll(".ctrl-btn").forEach(function(o,r){o.classList.remove("active"),r>=t&&r<=n&&o.classList.add("active")})};var tt=class{allVidsFeatures=N.querySelectorAll(".vid");allCtrlBtnsFeatures=c.querySelectorAll(".ctrl-btn.features");featureTextTimer;featureVidTimer;AddHandlerVidsFeaturesEnd=function(t){this.allVidsFeatures.forEach(function(n){n.addEventListener("ended",function(){t()})})};AddHandlerCtrlBtnWrapperFeatures=function(t){c.addEventListener("click",function(n){let o=n.target.closest(".ctrl-btn.features");if(!o)return;let r=o.parentElement;$(Array.prototype.indexOf.call(r.children,o)),t()})}},p=new tt;var et=class{componentSection=document.querySelector(".section_datasheets");allVidsComponentViews=[s.querySelector(".section-wrap-vids.view-a").querySelector(".vid"),s.querySelector(".section-wrap-vids.view-b").querySelector(".vid")];allVidsComponentDatasheets=s.querySelector(".section-wrap-vids.datasheets").querySelectorAll(".vid");datasheetsAllWrapper=s.querySelector(".section-wrap-comp-data");allDatasheetWraps=s.querySelectorAll(".comp-data-wrap");ctrlBtnWrapperComponents=c.querySelector(".section-wrap-btns.components");optsMenuWrapper=s.querySelector(".opts-wrapper");optsMenuBtn=s.querySelector(".opts-menu_btn");optsDropdown=s.querySelector(".opts-dropdown");dimmer=s.querySelector(".dimmer");textImgBtn=s.querySelector(".text-img-btn");textImgBtnLabel="image";allCtrlBtnsComponents=c.querySelectorAll(".ctrl-btn.components");activeDatasheet;AddHandlerVidsComponentDatasheetsEnds=function(t){this.allVidsComponentDatasheets.forEach(function(n){n.addEventListener("ended",function(){t()})})};AddHandlerOptionsMenuWrapperHoverIn=function(t){this.optsMenuWrapper.addEventListener("mouseenter",function(){t()})};AddHandlerOptionsMenuWrapperHoverOut=function(t){this.optsMenuWrapper.addEventListener("mouseleave",function(){t()})};AddHandlerOptionsMenuBtnClick=function(t){this.optsMenuBtn.addEventListener("click",function(){t()})};AddHandlerOptionsMenuDropdownClick=function(t){this.optsDropdown.addEventListener("click",function(n){let o=n.target.closest(".opts-menu_link"),r=o.textContent;o&&t(r)})};AddHandlerVidsComponentViewsEnds=function(t){this.allVidsComponentViews.forEach(n=>{n.addEventListener("ended",()=>{u==="view-a"?(I(0),C(5)):(I(6),C(11)),t()})})};AddHandlerTextImgBtn=function(t){this.textImgBtn.addEventListener("click",function(){t()})};AddHandlerCtrlBtnWrapperComponents=function(t){c.addEventListener("click",function(n){let o=n.target.closest(".ctrl-btn.components");if(!o)return;let r=o.parentElement;$(Array.prototype.indexOf.call(r.children,o)),t()})};AddHandlerBackBtn=function(t){c.addEventListener("click",function(n){n.target.closest(".ctrl-btn.back")&&t()})};DisplayDataSheet=function(){d("comps",b),this.dimmer.classList.add("active"),this.ActivateDeactivateDatasheetTextAndButtons(!0)};ActivateDeactivateDatasheetTextAndButtons=function(t){this.textImgBtn.classList.toggle("active",t),this.datasheetsAllWrapper.classList.toggle("active",t),this.allDatasheetWraps.forEach((n,o)=>{n.classList.remove("active"),n.querySelector(".comp-data-body-wrap").classList.add("active"),t&&o===b&&(n.classList.add("active"),this.activeDatasheet=n)}),X.classList.toggle("active",t)}},a=new et;var nt=class{allVidsSections=[...P];allVidsInstructions=[];allVidsInstructionsMobileP=[];currentInstructionVid;instructionVidTimer;AddHandlerVidsInstructionsEnds=function(t){[...P].forEach(n=>{n.querySelectorAll(".vid").forEach(o=>{this.allVidsInstructions.push(o)}),n.querySelectorAll(".vid-mobile-p").forEach(o=>{this.allVidsInstructionsMobileP.push(o)})}),this.allVidsInstructions.forEach(function(n){n.addEventListener("ended",function(){A.style.pointerEvents="none",n.classList.remove("active"),n.pause(),t()})})};AddHandlerVidsInstructionsPause=function(t){A.addEventListener("click",function(){V?w(!1):w(!0),t()})};AddHandlerCtrlBtnWrapperInstructions=function(t){c.addEventListener("click",n=>{let o=n.target.closest(".ctrl-btn.instructions");if(!o)return;let r=o.parentElement;this.currentInstructionVid=Array.prototype.indexOf.call(r.children,o),t()})};ResetToInstructionsMainScreen=function(){E(150),Q(),f("main"),d("main"),S("instructions",!1)}},i=new nt;var ot=class{AddHandlerStartButton=function(t){at.addEventListener("click",function(){t()})};AddHandlerAllNavLinks=function(t){T.forEach(function(n){n.addEventListener("click",function(o){let r=o.target.closest(".nav_menu_link");r&&t(r)})})};AddHandlerNavLinkInstructionsHoverIn=function(t){L.addEventListener("mouseenter",function(){t()})};AddHandlerNavLinkInstructionsHoverOut=function(t){L.addEventListener("mouseleave",function(){t()})};AddHandlerNavLinkInstructionsClick=function(t){L.addEventListener("click",function(){t()})};AddHandlerNavLinkDropdownMenuHoverIn=function(t){v.addEventListener("mouseenter",function(){t()})};AddHandlerNavLinkDropdownMenuHoverOut=function(t){v.addEventListener("mouseleave",function(){t()})};AddHandlerAllNavLinkDropdownOpts=function(t,n,o){st.forEach(function(r,Et){r.addEventListener("mouseenter",function(){t(r)}),r.addEventListener("mouseleave",function(){n(r)}),r.addEventListener("click",function(){U(r.parentElement.parentElement.querySelector(".nav_menu_link")),o(Et)})})};AddHandlerDropdownIconBtn=function(t){ut.addEventListener("click",function(){t()})};AddHandlerNavBtnMobile=function(t){lt.addEventListener("click",function(){t()})};AddHandlerAllCtrlBtnsMouseEnter=function(t){Y.forEach(function(n){n.addEventListener("mouseenter",function(){t(n)})})};AddHandlerAllCtrlBtnsMouseLeave=function(t){Y.forEach(function(n){n.addEventListener("mouseleave",function(){t(n)})})};ActivateNavLink=function(){T.forEach(function(t){t.classList.remove("current"),t.classList.contains(m)&&t.classList.add("current")})};ActivateNavLinkDropdown=function(t){T.forEach(function(n){n.classList.remove("current")}),t.classList.add("current")};ResetSectionSpecial=function(){switch(m){case"features":y("main"),S("features");break;case"components":a.optsMenuWrapper.classList.remove("active"),d(u),[a.datasheetsAllWrapper,...a.allDatasheetWraps].forEach(function(t){t.classList.remove("active")}),u==="view-a"?(I(0),C(5)):(I(6),C(11)),a.dimmer.classList.remove("active"),a.textImgBtn.textContent="image",a.textImgBtnLabel="image",G("components",h,q);break;case"instructions":d("main"),S("instructions");break}}},l=new ot;var qt=function(){K.classList.remove("active"),setTimeout(function(){f(),D.classList.add("off"),p.allVidsFeatures[0].play(),N.querySelectorAll(".vid-mobile-p")[0].play(),setTimeout(function(){it.classList.add("active"),f("main"),c.classList.add("active")},1500)},500)},Lt=function(e,t){t?j(t):(t=0,j(0)),U(e.classList[1]),t||(t=0),mt(document.querySelectorAll(`.section_${m}`)[t]),v.classList.remove("active"),l.ActivateNavLink(),a.activeDatasheet&&a.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0,0),l.ResetSectionSpecial(),clearTimeout(p.featureTextTimer),clearTimeout(p.featureVidTimer),clearTimeout(i.instructionVidTimer),p.featureTextTimer=null,p.featureVidTimer=null,a.optsDropdown.classList.remove("active"),i.instructionVidTimer=null,A.style.pointerEvents="none",A.classList.remove("active"),w(!1),H("all"),f("main"),J(t),Z(),m==="features"&&O("main")},Mt=function(){M()},At=function(){v.classList.add("active"),z(!0)},St=function(){v.classList.remove("active"),z(!1)},Rt=function(e){e.classList.add("hovered")},Ht=function(e){e.classList.remove("hovered")},Ot=function(e){Lt(m,e),M(),document.querySelector(".w-nav-overlay").style.display="none",document.querySelector(".nav_button.w-nav-button").classList.remove("w--open")},Wt=function(){M(),l.ActivateNavLinkDropdown(L)},Ft=function(){B&&M(),T.forEach(function(e){e.classList.remove("current"),e.classList.contains(m)&&e.classList.add("current")})},Pt=function(e){e.classList.add("hovered")},Ut=function(e){e.classList.remove("hovered")},$t=function(){p.featureVidTimer=setTimeout(function(){E(50),d(),f("main"),y("main"),O("main"),S("features",!1)},1500)},Gt=function(){clearTimeout(p.featureTextTimer),clearTimeout(p.featureVidTimer),E(50),R("features",b),S("features",b),p.featureTextTimer=setTimeout(function(){f("feature",b)},1e3)},Kt=function(){d(u),f("main"),a.ctrlBtnWrapperComponents.querySelectorAll(".ctrl-btn").forEach(function(e){e.classList.remove("active")}),G("components",h,q),a.ctrlBtnWrapperComponents.classList.add("active")},Yt=function(){a.DisplayDataSheet()},bt=function(){a.optsDropdown.classList.add("active")},Xt=function(){a.optsDropdown.classList.remove("active")},zt=function(e){a.optsMenuWrapper.classList.remove("active"),u!==e&&(ft(e),a.optsMenuBtn.textContent=u,R(u),a.ctrlBtnWrapperComponents.classList.remove("active")),a.optsDropdown.classList.remove("active")},jt=function(){a.textImgBtnLabel==="image"?a.textImgBtn.textContent="text":a.textImgBtn.textContent="image",a.textImgBtnLabel=a.textImgBtn.textContent,a.activeDatasheet.querySelector(".comp-data-body-wrap").classList.toggle("active"),a.dimmer.classList.toggle("active")},Jt=function(){a.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0,0),H("components","datasheets"),d(u),a.dimmer.classList.remove("active"),a.ActivateDeactivateDatasheetTextAndButtons(!1),f("main"),J(),Z()},Qt=function(){a.optsMenuWrapper.classList.remove("active"),R("datasheets",b),a.ctrlBtnWrapperComponents.classList.remove("active")},Zt=function(){i.instructionVidTimer=setTimeout(function(){if(i.currentInstructionVid+=1,i.currentInstructionVid===4&&!0)i.currentInstructionVid=0;else if(i.currentInstructionVid===4&&!!0){i.ResetToInstructionsMainScreen();return}E(50),y("instructions",i.currentInstructionVid),O("instructions",i.currentInstructionVid,!0),S("instructions",i.currentInstructionVid)},1e3)},te=function(){V?(A.classList.add("active"),i.allVidsInstructions[i.currentInstructionVid+_*4].pause(),i.allVidsInstructionsMobileP[i.currentInstructionVid+_*4].pause()):(A.classList.remove("active"),i.allVidsInstructions[i.currentInstructionVid+_*4].play(),i.allVidsInstructionsMobileP[i.currentInstructionVid+_*4].play())},ee=function(){w(!1),A.classList.remove("active"),clearTimeout(i.instructionVidTimer),i.instructionVidTimer=null,D.classList.remove("off"),R("instructions",i.currentInstructionVid,!0),S("instructions",i.currentInstructionVid)},ne=function(){l.AddHandlerStartButton(qt),l.AddHandlerAllNavLinks(Lt),l.AddHandlerNavLinkInstructionsHoverIn(At),l.AddHandlerNavLinkInstructionsHoverOut(St),l.AddHandlerNavLinkInstructionsClick(Mt),l.AddHandlerNavLinkDropdownMenuHoverIn(At),l.AddHandlerNavLinkDropdownMenuHoverOut(St),l.AddHandlerAllNavLinkDropdownOpts(Rt,Ht,Ot),l.AddHandlerDropdownIconBtn(Wt),l.AddHandlerNavBtnMobile(Ft),p.AddHandlerVidsFeaturesEnd($t),a.AddHandlerVidsComponentDatasheetsEnds(Yt),l.AddHandlerAllCtrlBtnsMouseEnter(Pt),l.AddHandlerAllCtrlBtnsMouseLeave(Ut),p.AddHandlerCtrlBtnWrapperFeatures(Gt),a.AddHandlerOptionsMenuBtnClick(bt),a.AddHandlerOptionsMenuWrapperHoverIn(bt),a.AddHandlerOptionsMenuWrapperHoverOut(Xt),a.AddHandlerOptionsMenuDropdownClick(zt),a.AddHandlerBackBtn(Jt),a.AddHandlerVidsComponentViewsEnds(Kt),a.AddHandlerTextImgBtn(jt),a.AddHandlerCtrlBtnWrapperComponents(Qt),i.AddHandlerVidsInstructionsEnds(Zt),i.AddHandlerVidsInstructionsPause(te),i.AddHandlerCtrlBtnWrapperInstructions(ee),c.classList.remove("active")};ne();window.addEventListener("load",function(){v.classList.remove("active"),L.click(),ct.click(),rt.click(),this.setTimeout(function(){H(),vt(!1),dt.classList.remove("active"),K.classList.add("active")},100)});})();
-//# sourceMappingURL=main.js.map
+(() => {
+  // src/0_config.js
+  var BLACKOUT_STANDARD = 50;
+  var BLACKOUT_EXTRA = 150;
+  var BLACKOUT_INIT = 100;
+  var DELAY_BETWEEN_START_CLICK_AND_PLAY = 500;
+  var DELAY_BEFORE_UI_START = 1500;
+  var DELAY_BEFORE_FEATURE_TEXT = 1e3;
+  var PAUSE_AFTER_FEATURE_END = 1500;
+  var NO_OF_INSTRUCTION_VIDS = 4;
+  var PAUSE_BETWEEN_INSTRUCTION_VIDS = 1e3;
+  var INSTRUCTION_VIDS_LOOPING = true;
+  var DELAY_BEFORE_VID_REWIND = 100;
+  var COMP_BTNS_START_RANGE_A = 0;
+  var COMP_BTNS_END_RANGE_A = 5;
+  var COMP_BTNS_START_RANGE_B = 6;
+  var COMP_BTNS_END_RANGE_B = 11;
+
+  // src/0_global.js
+  var startButtonWrapper = document.querySelector(".start-btn-wrapper");
+  var startButton = document.querySelector(".start-btn");
+  var navBar = document.querySelector(".nav_component");
+  var navLinkFeatures = document.querySelector(
+    ".nav_menu_link.features"
+  );
+  var navLinkComponents = document.querySelector(
+    ".nav_menu_link.components"
+  );
+  var navLinkInstructions = document.querySelector(
+    ".nav_menu_link.instructions"
+  );
+  var allNavLinks = document.querySelectorAll(".nav_menu_link");
+  var navButtonMobile = document.querySelector(".nav_button");
+  var navLinkDropdown = document.querySelector(
+    ".nav_menu_link.instructions"
+  );
+  var navLinkDropdownMenu = document.querySelector(".nav_menu_dropdown");
+  var allNavLinkDropdownOpts = navLinkDropdownMenu.querySelectorAll(
+    ".nav_menu_link-dropdown"
+  );
+  var dropdownIconBtn = document.querySelector(".dropdown-icon-wrap");
+  var loader = document.querySelector(".loader-text");
+  var blackout = document.querySelector(".blackout");
+  var pauseWrapper = document.querySelector(".pause-wrapper");
+  var sectionFeatures = document.querySelector(".section_features");
+  var sectionComponents = document.querySelector(".section_components");
+  var sectionsInstructions = document.querySelectorAll(
+    ".section_instructions"
+  );
+  var dropdownIndex = 0;
+  var allSections = [
+    sectionFeatures,
+    sectionComponents,
+    ...sectionsInstructions
+  ];
+  var ctrlBtnWrapper = document.querySelector(".ctrl-btn-wrapper");
+  var allCtrlBtns = document.querySelectorAll(".ctrl-btn");
+  var allSectionBtnWrappers = document.querySelectorAll(".section-wrap-btns");
+  var backBtn = ctrlBtnWrapper.querySelector(".ctrl-btn.back");
+  var initializing = true;
+  var navDropdownFlag = false;
+  var activeSection = document.querySelector(".section_features");
+  var activeSectionName = activeSection.classList[0].slice(8);
+  var currentViewName = "view-a";
+  var pauseFlag = false;
+  var ctrlBtnIndex;
+  var startBtnRange;
+  var endBtnRange;
+  function SetInitializing(newValue) {
+    initializing = newValue;
+  }
+  function SetNavDropdownFlag(newValue) {
+    navDropdownFlag = newValue;
+  }
+  function SetDropdownIndex(newValue) {
+    dropdownIndex = newValue;
+  }
+  function SetActiveSection(newValue) {
+    activeSection = newValue;
+  }
+  function SetActiveSectionName(newValue) {
+    activeSectionName = newValue;
+  }
+  function SetCurrentViewName(newValue) {
+    currentViewName = newValue;
+  }
+  function SetPauseFlag(newValue) {
+    pauseFlag = newValue;
+  }
+  function SetStartBtnRange(newValue) {
+    startBtnRange = newValue;
+  }
+  function SetEndBtnRange(newValue) {
+    endBtnRange = newValue;
+  }
+  function SetCtrlBtnIndex(newValue) {
+    ctrlBtnIndex = newValue;
+  }
+  var DeactivateActivateNavDropdown = function() {
+    navDropdownFlag ? navLinkDropdownMenu.classList.remove("active") : navLinkDropdownMenu.classList.add("active");
+    navDropdownFlag = !navDropdownFlag;
+  };
+  var PrepSectionAndPlayVideo = function(vidName, vidIndex, pauseEnable) {
+    DeactivateActivateSectionText();
+    DeactivateActivateSectionImage();
+    ResetSectionVideos();
+    ActivateSectionVideo(vidName, vidIndex);
+    setTimeout(function() {
+      PlaySectionVideo(vidName, vidIndex, pauseEnable);
+      blackout.classList.add("off");
+    }, 200);
+  };
+  var DeactivateActivateSectionText = function(textName, textIndex) {
+    activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
+      el.classList.remove("active");
+      if (textName && el.classList.contains(textName)) {
+        el.classList.add("active");
+        if (textIndex || textIndex === 0) {
+          el.querySelectorAll(".text-wrapper").forEach(function(el2, index) {
+            el2.classList.remove("active");
+            if (index === textIndex) el2.classList.add("active");
+          });
+        }
+      }
+    });
+  };
+  var DeactivateActivateSectionImage = function(imgName, imgIndex) {
+    activeSection.querySelectorAll(".section-wrap-imgs").forEach(function(el) {
+      el.classList.remove("active");
+      if (imgName && el.classList.contains(imgName)) {
+        el.classList.add("active");
+        if (imgIndex || imgIndex === 0) {
+          el.querySelectorAll(".section-img").forEach(function(el2, index) {
+            el2.classList.remove("active");
+            if (index === imgIndex) el2.classList.add("active");
+          });
+          el.querySelectorAll(".section-img.mobile-p").forEach(function(el2, index) {
+            el2.classList.remove("active");
+            if (index === imgIndex) el2.classList.add("active");
+          });
+        }
+      }
+    });
+  };
+  var ResetSectionVideos = function(sectionName, subsectionName, vidIndex) {
+    if (sectionName === "all") {
+      document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
+        el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
+      });
+    } else if (!sectionName) {
+      activeSection.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
+        el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
+      });
+    } else if (sectionName && !subsectionName) {
+      document.querySelector(`.section_${sectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
+        el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
+      });
+    } else if (sectionName && subsectionName) {
+      document.querySelector(`.section_${sectionName}`).querySelector(`.section-wrap-vids.${subsectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
+        el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
+      });
+    }
+  };
+  var ActivateSectionVideo = function(vidName, vidIndex) {
+    DeactivateSectionVideos();
+    if (!vidIndex) vidIndex = 0;
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap")[vidIndex].classList.add("active");
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap.mobile-p")[vidIndex].classList.add("active");
+  };
+  var ActivateSection = function(sectionIndex) {
+    if (!sectionIndex) sectionIndex = 0;
+    allSections.forEach(function(el) {
+      el.classList.remove("active");
+    });
+    document.querySelectorAll(`.section_${activeSectionName}`)[sectionIndex].classList.add("active");
+    if (!initializing) FlashBlackout(BLACKOUT_STANDARD);
+  };
+  var DeactivateSectionVideos = function(sectionName) {
+    if (!sectionName) {
+      activeSection.querySelectorAll(".video-wrap").forEach(function(el) {
+        el.classList.remove("active");
+      });
+    } else {
+      document.querySelector(`.section_${sectionName}`).querySelectorAll(".video-wrap").forEach(function(el) {
+        el.classList.remove("active");
+      });
+    }
+  };
+  var PlaySectionVideo = function(vidName, vidIndex, pauseEnable) {
+    if (pauseEnable) pauseWrapper.style.pointerEvents = "auto";
+    if (!vidIndex) vidIndex = 0;
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap")[vidIndex].querySelector(".vid").play();
+    activeSection.querySelector(`.section-wrap-vids.${vidName}`).querySelectorAll(".video-wrap.mobile-p")[vidIndex].querySelector(".vid-mobile-p").play();
+  };
+  var ActivateSectionButtons = function() {
+    allSectionBtnWrappers.forEach(function(el) {
+      el.classList.remove("active");
+    });
+    ctrlBtnWrapper.querySelector(`.section-wrap-btns.${activeSectionName}`).classList.add("active");
+    backBtn.classList.remove("active");
+  };
+  var FlashBlackout = function(timerVariable) {
+    blackout.classList.remove("off");
+    setTimeout(function() {
+      blackout.classList.add("off");
+    }, timerVariable);
+  };
+  var DeactivateActivateCurrentCtrlButtons = function(sectionName, btnIndex) {
+    document.querySelectorAll(`.ctrl-btn.${sectionName}`).forEach(function(el, index) {
+      el.classList.remove("current", "hovered");
+      if ((btnIndex || btnIndex === 0) && index === btnIndex)
+        el.classList.add("current");
+    });
+  };
+  var DeactivateActivateCtrlBtnRange = function(btnsName, startIndex, endIndex) {
+    ctrlBtnWrapper.querySelector(`.section-wrap-btns.${btnsName}`).querySelectorAll(".ctrl-btn").forEach(function(el, index) {
+      el.classList.remove("active");
+      if (index >= startIndex && index <= endIndex) el.classList.add("active");
+    });
+  };
+
+  // src/1_features.js
+  var features = class {
+    //............................................................
+    //............................................................
+    //DEFINITIONS
+    allVidsFeatures = sectionFeatures.querySelectorAll(".vid");
+    allCtrlBtnsFeatures = ctrlBtnWrapper.querySelectorAll(".ctrl-btn.features");
+    featureTextTimer;
+    featureVidTimer;
+    //............................................................
+    //............................................................
+    //EVENTS
+    AddHandlerVidsFeaturesEnd = function(handler) {
+      this.allVidsFeatures.forEach(function(el) {
+        el.addEventListener("ended", function() {
+          handler();
+        });
+      });
+    };
+    AddHandlerCtrlBtnWrapperFeatures = function(handler) {
+      ctrlBtnWrapper.addEventListener("click", function(e) {
+        const clicked = e.target.closest(".ctrl-btn.features");
+        if (!clicked) return;
+        const parentElement = clicked.parentElement;
+        SetCtrlBtnIndex(
+          Array.prototype.indexOf.call(parentElement.children, clicked)
+        );
+        handler();
+      });
+    };
+  };
+  var features_default = new features();
+
+  // src/2_components.js
+  var components = class {
+    //............................................................
+    //............................................................
+    //DEFINITIONS
+    componentSection = document.querySelector(".section_datasheets");
+    allVidsComponentViews = [
+      sectionComponents.querySelector(".section-wrap-vids.view-a").querySelector(".vid"),
+      sectionComponents.querySelector(".section-wrap-vids.view-b").querySelector(".vid")
+    ];
+    allVidsComponentDatasheets = sectionComponents.querySelector(".section-wrap-vids.datasheets").querySelectorAll(".vid");
+    datasheetsAllWrapper = sectionComponents.querySelector(
+      ".section-wrap-comp-data"
+    );
+    allDatasheetWraps = sectionComponents.querySelectorAll(".comp-data-wrap");
+    ctrlBtnWrapperComponents = ctrlBtnWrapper.querySelector(
+      ".section-wrap-btns.components"
+    );
+    optsMenuWrapper = sectionComponents.querySelector(".opts-wrapper");
+    optsMenuBtn = sectionComponents.querySelector(".opts-menu_btn");
+    optsDropdown = sectionComponents.querySelector(".opts-dropdown");
+    dimmer = sectionComponents.querySelector(".dimmer");
+    textImgBtn = sectionComponents.querySelector(".text-img-btn");
+    textImgBtnLabel = "image";
+    allCtrlBtnsComponents = ctrlBtnWrapper.querySelectorAll(
+      ".ctrl-btn.components"
+    );
+    activeDatasheet;
+    //............................................................
+    //............................................................
+    //EVENTS
+    AddHandlerVidsComponentDatasheetsEnds = function(handler) {
+      this.allVidsComponentDatasheets.forEach(function(el) {
+        el.addEventListener("ended", function() {
+          handler();
+        });
+      });
+    };
+    AddHandlerOptionsMenuWrapperHoverIn = function(handler) {
+      this.optsMenuWrapper.addEventListener("mouseenter", function() {
+        handler();
+      });
+    };
+    AddHandlerOptionsMenuWrapperHoverOut = function(handler) {
+      this.optsMenuWrapper.addEventListener("mouseleave", function() {
+        handler();
+      });
+    };
+    AddHandlerOptionsMenuBtnClick = function(handler) {
+      this.optsMenuBtn.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerOptionsMenuDropdownClick = function(handler) {
+      this.optsDropdown.addEventListener("click", function(e) {
+        const clicked = e.target.closest(".opts-menu_link");
+        const clickedBtnContent = clicked.textContent;
+        if (!clicked) return;
+        handler(clickedBtnContent);
+      });
+    };
+    AddHandlerVidsComponentViewsEnds = function(handler) {
+      this.allVidsComponentViews.forEach((el) => {
+        el.addEventListener("ended", () => {
+          if (currentViewName === "view-a") {
+            SetStartBtnRange(0);
+            SetEndBtnRange(5);
+          } else {
+            SetStartBtnRange(6);
+            SetEndBtnRange(11);
+          }
+          handler();
+        });
+      });
+    };
+    AddHandlerTextImgBtn = function(handler) {
+      this.textImgBtn.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerCtrlBtnWrapperComponents = function(handler) {
+      ctrlBtnWrapper.addEventListener("click", function(e) {
+        const clicked = e.target.closest(".ctrl-btn.components");
+        if (!clicked) return;
+        const parentElement = clicked.parentElement;
+        SetCtrlBtnIndex(
+          Array.prototype.indexOf.call(parentElement.children, clicked)
+        );
+        handler();
+      });
+    };
+    AddHandlerBackBtn = function(handler) {
+      ctrlBtnWrapper.addEventListener("click", function(e) {
+        const clicked = e.target.closest(".ctrl-btn.back");
+        if (!clicked) return;
+        handler();
+      });
+    };
+    //.......................................................................
+    //.......................................................................
+    //FUNCTIONS
+    DisplayDataSheet = function() {
+      DeactivateActivateSectionImage("comps", ctrlBtnIndex);
+      this.dimmer.classList.add("active");
+      this.ActivateDeactivateDatasheetTextAndButtons(true);
+    };
+    ActivateDeactivateDatasheetTextAndButtons = function(activeDeactivate) {
+      this.textImgBtn.classList.toggle("active", activeDeactivate);
+      this.datasheetsAllWrapper.classList.toggle("active", activeDeactivate);
+      this.allDatasheetWraps.forEach((el, index) => {
+        el.classList.remove("active");
+        el.querySelector(".comp-data-body-wrap").classList.add("active");
+        if (activeDeactivate && index === ctrlBtnIndex) {
+          el.classList.add("active");
+          this.activeDatasheet = el;
+        }
+      });
+      backBtn.classList.toggle("active", activeDeactivate);
+    };
+  };
+  var components_default = new components();
+
+  // src/3_instructions.js
+  var instructions = class {
+    //............................................................
+    //............................................................
+    //DEFINITIONS
+    allVidsSections = [...sectionsInstructions];
+    allVidsInstructions = [];
+    allVidsInstructionsMobileP = [];
+    currentInstructionVid;
+    instructionVidTimer;
+    //............................................................
+    //............................................................
+    //EVENTS
+    AddHandlerVidsInstructionsEnds = function(handler) {
+      [...sectionsInstructions].forEach((el) => {
+        el.querySelectorAll(".vid").forEach((el2) => {
+          this.allVidsInstructions.push(el2);
+        });
+        el.querySelectorAll(".vid-mobile-p").forEach((el3) => {
+          this.allVidsInstructionsMobileP.push(el3);
+        });
+      });
+      this.allVidsInstructions.forEach(function(el) {
+        el.addEventListener("ended", function() {
+          pauseWrapper.style.pointerEvents = "none";
+          el.classList.remove("active");
+          el.pause();
+          handler();
+        });
+      });
+    };
+    AddHandlerVidsInstructionsPause = function(handler) {
+      pauseWrapper.addEventListener("click", function() {
+        pauseFlag ? SetPauseFlag(false) : SetPauseFlag(true);
+        handler();
+      });
+    };
+    AddHandlerCtrlBtnWrapperInstructions = function(handler) {
+      ctrlBtnWrapper.addEventListener("click", (e) => {
+        const clicked = e.target.closest(".ctrl-btn.instructions");
+        if (!clicked) return;
+        const parentElement = clicked.parentElement;
+        this.currentInstructionVid = Array.prototype.indexOf.call(
+          parentElement.children,
+          clicked
+        );
+        handler();
+      });
+    };
+    //.......................................................................
+    //.......................................................................
+    //FUNCTIONS
+    ResetToInstructionsMainScreen = function() {
+      FlashBlackout(BLACKOUT_EXTRA);
+      DeactivateSectionVideos();
+      DeactivateActivateSectionText("main");
+      DeactivateActivateSectionImage("main");
+      DeactivateActivateCurrentCtrlButtons("instructions", false);
+    };
+  };
+  var instructions_default = new instructions();
+
+  // src/0_nav.js
+  var navigation = class {
+    AddHandlerStartButton = function(handler) {
+      startButton.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerAllNavLinks = function(handler) {
+      allNavLinks.forEach(function(el) {
+        el.addEventListener("click", function(e) {
+          const clicked = e.target.closest(".nav_menu_link");
+          if (!clicked) return;
+          handler(clicked);
+        });
+      });
+    };
+    AddHandlerNavLinkInstructionsHoverIn = function(handler) {
+      navLinkInstructions.addEventListener("mouseenter", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkInstructionsHoverOut = function(handler) {
+      navLinkInstructions.addEventListener("mouseleave", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkInstructionsClick = function(handler) {
+      navLinkInstructions.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkDropdownMenuHoverIn = function(handler) {
+      navLinkDropdownMenu.addEventListener("mouseenter", function() {
+        handler();
+      });
+    };
+    AddHandlerNavLinkDropdownMenuHoverOut = function(handler) {
+      navLinkDropdownMenu.addEventListener("mouseleave", function() {
+        handler();
+      });
+    };
+    AddHandlerAllNavLinkDropdownOpts = function(handler1, handler2, handler3) {
+      allNavLinkDropdownOpts.forEach(function(el, index) {
+        el.addEventListener("mouseenter", function() {
+          handler1(el);
+        });
+        el.addEventListener("mouseleave", function() {
+          handler2(el);
+        });
+        el.addEventListener("click", function() {
+          SetActiveSectionName(
+            el.parentElement.parentElement.querySelector(".nav_menu_link")
+          );
+          let dropdownIndex2 = index;
+          handler3(dropdownIndex2);
+        });
+      });
+    };
+    AddHandlerDropdownIconBtn = function(handler) {
+      dropdownIconBtn.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerNavBtnMobile = function(handler) {
+      navButtonMobile.addEventListener("click", function() {
+        handler();
+      });
+    };
+    AddHandlerAllCtrlBtnsMouseEnter = function(handler) {
+      allCtrlBtns.forEach(function(el) {
+        el.addEventListener("mouseenter", function() {
+          handler(el);
+        });
+      });
+    };
+    AddHandlerAllCtrlBtnsMouseLeave = function(handler) {
+      allCtrlBtns.forEach(function(el) {
+        el.addEventListener("mouseleave", function() {
+          handler(el);
+        });
+      });
+    };
+    //.......................................................................
+    //.......................................................................
+    //FUNCTIONS
+    ActivateNavLink = function() {
+      allNavLinks.forEach(function(el) {
+        el.classList.remove("current");
+        if (el.classList.contains(activeSectionName))
+          el.classList.add("current");
+      });
+    };
+    ActivateNavLinkDropdown = function(navLinkName) {
+      allNavLinks.forEach(function(el) {
+        el.classList.remove("current");
+      });
+      navLinkName.classList.add("current");
+    };
+    ResetSectionSpecial = function() {
+      switch (activeSectionName) {
+        case "features":
+          ActivateSectionVideo("main");
+          DeactivateActivateCurrentCtrlButtons("features");
+          break;
+        case "components":
+          components_default.optsMenuWrapper.classList.remove("active");
+          DeactivateActivateSectionImage(currentViewName);
+          [
+            components_default.datasheetsAllWrapper,
+            ...components_default.allDatasheetWraps
+          ].forEach(function(el) {
+            el.classList.remove("active");
+          });
+          if (currentViewName === "view-a") {
+            SetStartBtnRange(COMP_BTNS_START_RANGE_A);
+            SetEndBtnRange(COMP_BTNS_END_RANGE_A);
+          } else {
+            SetStartBtnRange(COMP_BTNS_START_RANGE_B);
+            SetEndBtnRange(COMP_BTNS_END_RANGE_B);
+          }
+          components_default.dimmer.classList.remove("active");
+          components_default.textImgBtn.textContent = "image";
+          components_default.textImgBtnLabel = "image";
+          DeactivateActivateCtrlBtnRange(
+            "components",
+            startBtnRange,
+            endBtnRange
+          );
+          break;
+        case "instructions":
+          DeactivateActivateSectionImage("main");
+          DeactivateActivateCurrentCtrlButtons("instructions");
+          break;
+      }
+    };
+  };
+  var nav_default = new navigation();
+
+  // src/main.js
+  var MainStartButton = function() {
+    startButtonWrapper.classList.remove("active");
+    setTimeout(function() {
+      DeactivateActivateSectionText();
+      blackout.classList.add("off");
+      features_default.allVidsFeatures[0].play();
+      sectionFeatures.querySelectorAll(".vid-mobile-p")[0].play();
+      setTimeout(function() {
+        navBar.classList.add("active");
+        DeactivateActivateSectionText("main");
+        ctrlBtnWrapper.classList.add("active");
+      }, DELAY_BEFORE_UI_START);
+    }, DELAY_BETWEEN_START_CLICK_AND_PLAY);
+  };
+  var MainAllNavLinks = function(navLink, dropdownIndex2) {
+    if (dropdownIndex2) SetDropdownIndex(dropdownIndex2);
+    else {
+      dropdownIndex2 = 0;
+      SetDropdownIndex(0);
+    }
+    SetActiveSectionName(navLink.classList[1]);
+    if (!dropdownIndex2) dropdownIndex2 = 0;
+    SetActiveSection(
+      document.querySelectorAll(`.section_${activeSectionName}`)[dropdownIndex2]
+    );
+    navLinkDropdownMenu.classList.remove("active");
+    nav_default.ActivateNavLink();
+    if (components_default.activeDatasheet)
+      components_default.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
+    nav_default.ResetSectionSpecial();
+    clearTimeout(features_default.featureTextTimer);
+    clearTimeout(features_default.featureVidTimer);
+    clearTimeout(instructions_default.instructionVidTimer);
+    features_default.featureTextTimer = null;
+    features_default.featureVidTimer = null;
+    components_default.optsDropdown.classList.remove("active");
+    instructions_default.instructionVidTimer = null;
+    pauseWrapper.style.pointerEvents = "none";
+    pauseWrapper.classList.remove("active");
+    SetPauseFlag(false);
+    ResetSectionVideos("all");
+    DeactivateActivateSectionText("main");
+    ActivateSection(dropdownIndex2);
+    ActivateSectionButtons();
+    if (activeSectionName === "features") PlaySectionVideo("main");
+  };
+  var MainNavLinkInstructionsClick = function() {
+    DeactivateActivateNavDropdown();
+  };
+  var MainNavDropdownHoverIn = function() {
+    navLinkDropdownMenu.classList.add("active");
+    SetNavDropdownFlag(true);
+  };
+  var MainNavDropdownHoverOut = function() {
+    navLinkDropdownMenu.classList.remove("active");
+    SetNavDropdownFlag(false);
+  };
+  var MainAllNavLinkDropDownOptsHoverIn = function(navLinkDropdownBtn) {
+    navLinkDropdownBtn.classList.add("hovered");
+  };
+  var MainAllNavLinkDropDownOptsHoverOut = function(navLinkDropdownBtn) {
+    navLinkDropdownBtn.classList.remove("hovered");
+  };
+  var MainAllNavLinkDropDownOptsClick = function(dropdownIndex2) {
+    MainAllNavLinks(activeSectionName, dropdownIndex2);
+    DeactivateActivateNavDropdown();
+    document.querySelector(".w-nav-overlay").style.display = "none";
+    document.querySelector(".nav_button.w-nav-button").classList.remove("w--open");
+  };
+  var MainDropDownIconBtn = function() {
+    DeactivateActivateNavDropdown();
+    nav_default.ActivateNavLinkDropdown(navLinkInstructions);
+  };
+  var MainNavBtnMobile = function() {
+    if (navDropdownFlag) DeactivateActivateNavDropdown();
+    allNavLinks.forEach(function(el) {
+      el.classList.remove("current");
+      if (el.classList.contains(activeSectionName))
+        el.classList.add("current");
+    });
+  };
+  var MainAllCtrlBtnsMouseEnter = function(ctrlBtn) {
+    ctrlBtn.classList.add("hovered");
+  };
+  var MainAllCtrlBtnsMouseLeave = function(ctrlBtn) {
+    ctrlBtn.classList.remove("hovered");
+  };
+  var MainFeaturesVidsEnds = function() {
+    features_default.featureVidTimer = setTimeout(function() {
+      FlashBlackout(BLACKOUT_STANDARD);
+      DeactivateActivateSectionImage();
+      DeactivateActivateSectionText("main");
+      ActivateSectionVideo("main");
+      PlaySectionVideo("main");
+      DeactivateActivateCurrentCtrlButtons("features", false);
+    }, PAUSE_AFTER_FEATURE_END);
+  };
+  var MainCtrlBtnsFeatures = function() {
+    clearTimeout(features_default.featureTextTimer);
+    clearTimeout(features_default.featureVidTimer);
+    FlashBlackout(BLACKOUT_STANDARD);
+    PrepSectionAndPlayVideo("features", ctrlBtnIndex);
+    DeactivateActivateCurrentCtrlButtons("features", ctrlBtnIndex);
+    features_default.featureTextTimer = setTimeout(function() {
+      DeactivateActivateSectionText("feature", ctrlBtnIndex);
+    }, DELAY_BEFORE_FEATURE_TEXT);
+  };
+  var MainComponentVidsViewsEnds = function() {
+    DeactivateActivateSectionImage(currentViewName);
+    DeactivateActivateSectionText("main");
+    components_default.ctrlBtnWrapperComponents.querySelectorAll(".ctrl-btn").forEach(function(el) {
+      el.classList.remove("active");
+    });
+    DeactivateActivateCtrlBtnRange(
+      "components",
+      startBtnRange,
+      endBtnRange
+    );
+    components_default.ctrlBtnWrapperComponents.classList.add("active");
+  };
+  var MainVidsComponentDatasheetsEnds = function() {
+    components_default.DisplayDataSheet();
+  };
+  var MainOptionsMenuShow = function() {
+    components_default.optsDropdown.classList.add("active");
+  };
+  var MainOptionsMenuHide = function() {
+    components_default.optsDropdown.classList.remove("active");
+  };
+  var MainOptionsMenuDropdownClick = function(clickedBtnContent) {
+    components_default.optsMenuWrapper.classList.remove("active");
+    if (currentViewName !== clickedBtnContent) {
+      SetCurrentViewName(clickedBtnContent);
+      components_default.optsMenuBtn.textContent = currentViewName;
+      PrepSectionAndPlayVideo(currentViewName);
+      components_default.ctrlBtnWrapperComponents.classList.remove("active");
+    }
+    components_default.optsDropdown.classList.remove("active");
+  };
+  var MainTextImgBtn = function() {
+    components_default.textImgBtnLabel === "image" ? components_default.textImgBtn.textContent = "text" : components_default.textImgBtn.textContent = "image";
+    components_default.textImgBtnLabel = components_default.textImgBtn.textContent;
+    components_default.activeDatasheet.querySelector(".comp-data-body-wrap").classList.toggle("active");
+    components_default.dimmer.classList.toggle("active");
+  };
+  var MainBackBtn = function() {
+    components_default.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
+    ResetSectionVideos("components", "datasheets");
+    DeactivateActivateSectionImage(currentViewName);
+    components_default.dimmer.classList.remove("active");
+    components_default.ActivateDeactivateDatasheetTextAndButtons(false);
+    DeactivateActivateSectionText("main");
+    ActivateSection();
+    ActivateSectionButtons();
+  };
+  var MainCtrlBtnsComponents = function() {
+    components_default.optsMenuWrapper.classList.remove("active");
+    PrepSectionAndPlayVideo("datasheets", ctrlBtnIndex);
+    components_default.ctrlBtnWrapperComponents.classList.remove("active");
+  };
+  var MainInstructionsVidsEnds = function() {
+    instructions_default.instructionVidTimer = setTimeout(function() {
+      instructions_default.currentInstructionVid += 1;
+      if (instructions_default.currentInstructionVid === NO_OF_INSTRUCTION_VIDS && INSTRUCTION_VIDS_LOOPING) {
+        instructions_default.currentInstructionVid = 0;
+      } else if (instructions_default.currentInstructionVid === NO_OF_INSTRUCTION_VIDS && !INSTRUCTION_VIDS_LOOPING) {
+        instructions_default.ResetToInstructionsMainScreen();
+        return;
+      }
+      FlashBlackout(BLACKOUT_STANDARD);
+      ActivateSectionVideo(
+        "instructions",
+        instructions_default.currentInstructionVid
+      );
+      PlaySectionVideo(
+        "instructions",
+        instructions_default.currentInstructionVid,
+        true
+      );
+      DeactivateActivateCurrentCtrlButtons(
+        "instructions",
+        instructions_default.currentInstructionVid
+      );
+    }, PAUSE_BETWEEN_INSTRUCTION_VIDS);
+  };
+  var MainVidsInstructionsPauseUnpause = function() {
+    if (pauseFlag) {
+      pauseWrapper.classList.add("active");
+      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].pause();
+      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].pause();
+    } else {
+      pauseWrapper.classList.remove("active");
+      instructions_default.allVidsInstructions[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].play();
+      instructions_default.allVidsInstructionsMobileP[instructions_default.currentInstructionVid + dropdownIndex * NO_OF_INSTRUCTION_VIDS].play();
+    }
+  };
+  var MainCtrlBtnsInstructions = function() {
+    SetPauseFlag(false);
+    pauseWrapper.classList.remove("active");
+    clearTimeout(instructions_default.instructionVidTimer);
+    instructions_default.instructionVidTimer = null;
+    blackout.classList.remove("off");
+    PrepSectionAndPlayVideo(
+      "instructions",
+      instructions_default.currentInstructionVid,
+      true
+    );
+    DeactivateActivateCurrentCtrlButtons(
+      "instructions",
+      instructions_default.currentInstructionVid
+    );
+  };
+  var init = function() {
+    nav_default.AddHandlerStartButton(MainStartButton);
+    nav_default.AddHandlerAllNavLinks(MainAllNavLinks);
+    nav_default.AddHandlerNavLinkInstructionsHoverIn(MainNavDropdownHoverIn);
+    nav_default.AddHandlerNavLinkInstructionsHoverOut(MainNavDropdownHoverOut);
+    nav_default.AddHandlerNavLinkInstructionsClick(MainNavLinkInstructionsClick);
+    nav_default.AddHandlerNavLinkDropdownMenuHoverIn(MainNavDropdownHoverIn);
+    nav_default.AddHandlerNavLinkDropdownMenuHoverOut(MainNavDropdownHoverOut);
+    nav_default.AddHandlerAllNavLinkDropdownOpts(
+      MainAllNavLinkDropDownOptsHoverIn,
+      MainAllNavLinkDropDownOptsHoverOut,
+      MainAllNavLinkDropDownOptsClick
+    );
+    nav_default.AddHandlerDropdownIconBtn(MainDropDownIconBtn);
+    nav_default.AddHandlerNavBtnMobile(MainNavBtnMobile);
+    features_default.AddHandlerVidsFeaturesEnd(MainFeaturesVidsEnds);
+    components_default.AddHandlerVidsComponentDatasheetsEnds(
+      MainVidsComponentDatasheetsEnds
+    );
+    nav_default.AddHandlerAllCtrlBtnsMouseEnter(MainAllCtrlBtnsMouseEnter);
+    nav_default.AddHandlerAllCtrlBtnsMouseLeave(MainAllCtrlBtnsMouseLeave);
+    features_default.AddHandlerCtrlBtnWrapperFeatures(MainCtrlBtnsFeatures);
+    components_default.AddHandlerOptionsMenuBtnClick(MainOptionsMenuShow);
+    components_default.AddHandlerOptionsMenuWrapperHoverIn(MainOptionsMenuShow);
+    components_default.AddHandlerOptionsMenuWrapperHoverOut(MainOptionsMenuHide);
+    components_default.AddHandlerOptionsMenuDropdownClick(MainOptionsMenuDropdownClick);
+    components_default.AddHandlerBackBtn(MainBackBtn);
+    components_default.AddHandlerVidsComponentViewsEnds(MainComponentVidsViewsEnds);
+    components_default.AddHandlerTextImgBtn(MainTextImgBtn);
+    components_default.AddHandlerCtrlBtnWrapperComponents(MainCtrlBtnsComponents);
+    instructions_default.AddHandlerVidsInstructionsEnds(MainInstructionsVidsEnds);
+    instructions_default.AddHandlerVidsInstructionsPause(
+      MainVidsInstructionsPauseUnpause
+    );
+    instructions_default.AddHandlerCtrlBtnWrapperInstructions(MainCtrlBtnsInstructions);
+    ctrlBtnWrapper.classList.remove("active");
+  };
+  init();
+  window.addEventListener("load", function() {
+    navLinkDropdownMenu.classList.remove("active");
+    navLinkInstructions.click();
+    navLinkComponents.click();
+    navLinkFeatures.click();
+    this.setTimeout(function() {
+      ResetSectionVideos();
+      SetInitializing(false);
+      loader.classList.remove("active");
+      startButtonWrapper.classList.add("active");
+    }, BLACKOUT_INIT);
+  });
+})();
