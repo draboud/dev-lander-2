@@ -261,11 +261,12 @@ const MainCtrlBtnsInstructions = function () {
   global.pauseWrapper.classList.remove("active");
   clearTimeout(instructions.instructionVidTimer);
   instructions.instructionVidTimer = null;
-  global.FlashBlackout(BLACKOUT_STANDARD);
-  global.ActivateSectionVideo(
-    "instructions",
-    instructions.currentInstructionVid
-  );
+  // global.FlashBlackout(BLACKOUT_STANDARD);
+  global.blackout.classList.remove("off");
+  // global.ActivateSectionVideo(
+  //   "instructions",
+  //   instructions.currentInstructionVid
+  // );
   global.PrepSectionAndPlayVideo(
     "instructions",
     instructions.currentInstructionVid,

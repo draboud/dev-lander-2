@@ -104,7 +104,10 @@
     DeactivateActivateSectionImage();
     ResetSectionVideos();
     ActivateSectionVideo(vidName, vidIndex);
-    PlaySectionVideo(vidName, vidIndex, pauseEnable);
+    blackout.classList.add("off");
+    setTimeout(function() {
+      PlaySectionVideo(vidName, vidIndex, pauseEnable);
+    }, 200);
   };
   var DeactivateActivateSectionText = function(textName, textIndex) {
     activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
@@ -776,11 +779,7 @@
     pauseWrapper.classList.remove("active");
     clearTimeout(instructions_default.instructionVidTimer);
     instructions_default.instructionVidTimer = null;
-    FlashBlackout(BLACKOUT_STANDARD);
-    ActivateSectionVideo(
-      "instructions",
-      instructions_default.currentInstructionVid
-    );
+    blackout.classList.remove("off");
     PrepSectionAndPlayVideo(
       "instructions",
       instructions_default.currentInstructionVid,
