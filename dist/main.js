@@ -102,7 +102,6 @@
   var PrepSectionAndPlayVideo = function(vidName, vidIndex, pauseEnable) {
     DeactivateActivateSectionText();
     DeactivateActivateSectionImage();
-    ResetSectionVideos();
     ActivateSectionVideo(vidName, vidIndex);
     setTimeout(function() {
       PlaySectionVideo(vidName, vidIndex, pauseEnable);
