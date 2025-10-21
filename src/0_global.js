@@ -1,7 +1,7 @@
 //............................................................
 //............................................................
 //IMPORTS
-import { BLACKOUT_STANDARD } from "./0_config";
+import { BLACKOUT_STANDARD, DELAY_BEFORE_VID_REWIND } from "./0_config";
 //............................................................
 //............................................................
 //GLOBAL DEFINITIONS
@@ -106,7 +106,10 @@ export const PrepSectionAndPlayVideo = function (
   DeactivateActivateSectionImage();
   ResetSectionVideos();
   ActivateSectionVideo(vidName, vidIndex);
-  PlaySectionVideo(vidName, vidIndex, pauseEnable);
+  setTimeout(function () {
+    PlaySectionVideo(vidName, vidIndex, pauseEnable);
+    blackout.classList.add("off");
+  }, 200);
 };
 export const DeactivateActivateSectionText = function (textName, textIndex) {
   activeSection.querySelectorAll(".section-wrap-text").forEach(function (el) {
@@ -150,21 +153,27 @@ export const ResetSectionVideos = function (
 ) {
   if (sectionName === "all") {
     document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function (el) {
-      el.currentTime = 0;
       el.pause();
+      setTimeout(function () {
+        el.currentTime = 0;
+      }, DELAY_BEFORE_VID_REWIND);
     });
   } else if (!sectionName) {
     activeSection.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function (el) {
-      el.currentTime = 0;
       el.pause();
+      setTimeout(function () {
+        el.currentTime = 0;
+      }, DELAY_BEFORE_VID_REWIND);
     });
   } else if (sectionName && !subsectionName) {
     document
       .querySelector(`.section_${sectionName}`)
       .querySelectorAll(`.vid,.vid-mobile-p`)
       .forEach(function (el) {
-        el.currentTime = 0;
         el.pause();
+        setTimeout(function () {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
       });
   } else if (sectionName && subsectionName) {
     document
@@ -172,8 +181,10 @@ export const ResetSectionVideos = function (
       .querySelector(`.section-wrap-vids.${subsectionName}`)
       .querySelectorAll(`.vid,.vid-mobile-p`)
       .forEach(function (el) {
-        el.currentTime = 0;
         el.pause();
+        setTimeout(function () {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
       });
   }
 };

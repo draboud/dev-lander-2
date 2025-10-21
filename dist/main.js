@@ -10,6 +10,7 @@
   var NO_OF_INSTRUCTION_VIDS = 4;
   var PAUSE_BETWEEN_INSTRUCTION_VIDS = 1e3;
   var INSTRUCTION_VIDS_LOOPING = true;
+  var DELAY_BEFORE_VID_REWIND = 100;
   var COMP_BTNS_START_RANGE_A = 0;
   var COMP_BTNS_END_RANGE_A = 5;
   var COMP_BTNS_START_RANGE_B = 6;
@@ -104,7 +105,10 @@
     DeactivateActivateSectionImage();
     ResetSectionVideos();
     ActivateSectionVideo(vidName, vidIndex);
-    PlaySectionVideo(vidName, vidIndex, pauseEnable);
+    setTimeout(function() {
+      PlaySectionVideo(vidName, vidIndex, pauseEnable);
+      blackout.classList.add("off");
+    }, 200);
   };
   var DeactivateActivateSectionText = function(textName, textIndex) {
     activeSection.querySelectorAll(".section-wrap-text").forEach(function(el) {
@@ -141,23 +145,31 @@
   var ResetSectionVideos = function(sectionName, subsectionName, vidIndex) {
     if (sectionName === "all") {
       document.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
-        el.currentTime = 0;
         el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
       });
     } else if (!sectionName) {
       activeSection.querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
-        el.currentTime = 0;
         el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
       });
     } else if (sectionName && !subsectionName) {
       document.querySelector(`.section_${sectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
-        el.currentTime = 0;
         el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
       });
     } else if (sectionName && subsectionName) {
       document.querySelector(`.section_${sectionName}`).querySelector(`.section-wrap-vids.${subsectionName}`).querySelectorAll(`.vid,.vid-mobile-p`).forEach(function(el) {
-        el.currentTime = 0;
         el.pause();
+        setTimeout(function() {
+          el.currentTime = 0;
+        }, DELAY_BEFORE_VID_REWIND);
       });
     }
   };
@@ -776,11 +788,7 @@
     pauseWrapper.classList.remove("active");
     clearTimeout(instructions_default.instructionVidTimer);
     instructions_default.instructionVidTimer = null;
-    FlashBlackout(BLACKOUT_STANDARD);
-    ActivateSectionVideo(
-      "instructions",
-      instructions_default.currentInstructionVid
-    );
+    blackout.classList.remove("off");
     PrepSectionAndPlayVideo(
       "instructions",
       instructions_default.currentInstructionVid,
