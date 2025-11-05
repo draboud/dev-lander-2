@@ -225,19 +225,24 @@ export const DeactivateSectionVideos = function (sectionName) {
   }
 };
 export const PlaySectionVideo = function (vidName, vidIndex, pauseEnable) {
-  if (pauseEnable) pauseWrapper.style.pointerEvents = "auto";
-  if (!vidIndex) vidIndex = 0;
-  activeSection
-    .querySelector(`.section-wrap-vids.${vidName}`)
-    .querySelectorAll(".video-wrap")
-    [vidIndex].querySelector(".vid")
-    .play();
-  activeSection
-    .querySelector(`.section-wrap-vids.${vidName}`)
-    .querySelectorAll(".video-wrap.mobile-p")
-    [vidIndex].querySelector(".vid-mobile-p")
-    .play();
+  try {
+    if (pauseEnable) pauseWrapper.style.pointerEvents = "auto";
+    if (!vidIndex) vidIndex = 0;
+    activeSection
+      .querySelector(`.section-wrap-vids.${vidName}`)
+      .querySelectorAll(".video-wrap")
+      [vidIndex].querySelector(".vid")
+      .play();
+    activeSection
+      .querySelector(`.section-wrap-vids.${vidName}`)
+      .querySelectorAll(".video-wrap.mobile-p")
+      [vidIndex].querySelector(".vid-mobile-p")
+      .play();
+  } catch (error) {
+    console.error("error!");
+  }
 };
+
 export const ActivateSectionButtons = function () {
   allSectionBtnWrappers.forEach(function (el) {
     el.classList.remove("active");
