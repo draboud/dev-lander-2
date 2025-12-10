@@ -1,7 +1,12 @@
 //............................................................
 //............................................................
 //IMPORTS
-import { BLACKOUT_STANDARD, DELAY_BEFORE_VID_REWIND } from "./0_config";
+import {
+  BLACKOUT_STANDARD,
+  DELAY_BEFORE_VID_REWIND,
+  NO_OF_INSTRUCTION_VIDS1,
+  NO_OF_INSTRUCTION_VIDS2,
+} from "./0_config";
 //............................................................
 //............................................................
 //GLOBAL DEFINITIONS
@@ -35,7 +40,10 @@ export const sectionComponents = document.querySelector(".section_components");
 export const sectionsInstructions = document.querySelectorAll(
   ".section_instructions"
 );
-export let dropdownIndex = 0;
+export const mobileMenuIndicator = document.querySelector(
+  ".mobile-menu-indicator"
+);
+export let dropdownIndex;
 export const allSections = [
   sectionFeatures,
   sectionComponents,
@@ -52,6 +60,7 @@ export let activeSection = document.querySelector(".section_features");
 export let activeSectionName = activeSection.classList[0].slice(8);
 export let currentViewName = "view-a";
 export let pauseFlag = false;
+export let instructionVidsCount;
 export let ctrlBtnIndex;
 export let startBtnRange;
 export let endBtnRange;
@@ -66,6 +75,8 @@ export function SetNavDropdownFlag(newValue) {
 }
 export function SetDropdownIndex(newValue) {
   dropdownIndex = newValue;
+  if (dropdownIndex === 0) instructionVidsCount = NO_OF_INSTRUCTION_VIDS1;
+  else instructionVidsCount = NO_OF_INSTRUCTION_VIDS2;
 }
 export function SetActiveSection(newValue) {
   activeSection = newValue;
@@ -244,6 +255,15 @@ export const PlaySectionVideo = function (vidName, vidIndex, pauseEnable) {
 };
 
 export const ActivateSectionButtons = function () {
+  if (dropdownIndex === 1) HideInstructionCtrlBtns([2, 3]);
+  else {
+    ctrlBtnWrapper
+      .querySelector(".section-wrap-btns.instructions")
+      .querySelectorAll(".ctrl-btn.instructions")
+      .forEach(function (el) {
+        el.style.display = "flex";
+      });
+  }
   allSectionBtnWrappers.forEach(function (el) {
     el.classList.remove("active");
   });
@@ -282,4 +302,13 @@ export const DeactivateActivateCtrlBtnRange = function (
       el.classList.remove("active");
       if (index >= startIndex && index <= endIndex) el.classList.add("active");
     });
+};
+const HideInstructionCtrlBtns = function (btnsHideArray) {
+  {
+    btnsHideArray.forEach(function (el) {
+      ctrlBtnWrapper
+        .querySelector(".section-wrap-btns.instructions")
+        .querySelectorAll(".ctrl-btn.instructions")[el].style.display = "none";
+    });
+  }
 };

@@ -66,8 +66,8 @@ class navigation {
         global.SetActiveSectionName(
           el.parentElement.parentElement.querySelector(".nav_menu_link")
         );
-        let dropdownIndex = index;
-        handler3(dropdownIndex);
+        global.SetDropdownIndex(index);
+        handler3();
       });
     });
   };

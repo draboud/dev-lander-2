@@ -1,4 +1,4 @@
-// console.log("Nov 5, 2025 main);
+// console.log("Dec 10, 2025 main);
 //.......................................................................
 //.......................................................................
 //IMPORTS
@@ -9,7 +9,7 @@ import {
   DELAY_BEFORE_UI_START,
   DELAY_BETWEEN_START_CLICK_AND_PLAY,
   INSTRUCTION_VIDS_LOOPING,
-  NO_OF_INSTRUCTION_VIDS,
+  NO_OF_INSTRUCTION_VIDS1,
   PAUSE_AFTER_FEATURE_END,
   PAUSE_BETWEEN_INSTRUCTION_VIDS,
 } from "./0_config";
@@ -42,7 +42,6 @@ const MainAllNavLinks = function (navLink, dropdownIndex) {
     global.SetDropdownIndex(0);
   }
   global.SetActiveSectionName(navLink.classList[1]);
-  if (!dropdownIndex) dropdownIndex = 0;
   global.SetActiveSection(
     document.querySelectorAll(`.section_${global.activeSectionName}`)[
       dropdownIndex
@@ -88,13 +87,11 @@ const MainAllNavLinkDropDownOptsHoverIn = function (navLinkDropdownBtn) {
 const MainAllNavLinkDropDownOptsHoverOut = function (navLinkDropdownBtn) {
   navLinkDropdownBtn.classList.remove("hovered");
 };
-const MainAllNavLinkDropDownOptsClick = function (dropdownIndex) {
-  MainAllNavLinks(global.activeSectionName, dropdownIndex);
+const MainAllNavLinkDropDownOptsClick = function () {
+  MainAllNavLinks(global.activeSectionName, global.dropdownIndex);
   global.DeactivateActivateNavDropdown();
-  document.querySelector(".w-nav-overlay").style.display = "none";
-  document
-    .querySelector(".nav_button.w-nav-button")
-    .classList.remove("w--open");
+  if (window.getComputedStyle(global.mobileMenuIndicator).display === "block")
+    document.querySelector(".nav_button.w-nav-button").click();
 };
 const MainDropDownIconBtn = function () {
   global.DeactivateActivateNavDropdown();
@@ -185,6 +182,8 @@ const MainTextImgBtn = function () {
   components.dimmer.classList.toggle("active");
 };
 const MainBackBtn = function () {
+  components.textImgBtnLabel = "image";
+  components.textImgBtn.textContent = "image";
   components.activeDatasheet.querySelector(".comp-data-body-wrap").scroll(0, 0);
   global.ResetSectionVideos("components", "datasheets");
   global.DeactivateActivateSectionImage(global.currentViewName);
@@ -206,12 +205,12 @@ const MainInstructionsVidsEnds = function () {
   instructions.instructionVidTimer = setTimeout(function () {
     instructions.currentInstructionVid += 1;
     if (
-      instructions.currentInstructionVid === NO_OF_INSTRUCTION_VIDS &&
+      instructions.currentInstructionVid === global.instructionVidsCount &&
       INSTRUCTION_VIDS_LOOPING
     ) {
       instructions.currentInstructionVid = 0;
     } else if (
-      instructions.currentInstructionVid === NO_OF_INSTRUCTION_VIDS &&
+      instructions.currentInstructionVid === global.instructionVidsCount &&
       !INSTRUCTION_VIDS_LOOPING
     ) {
       instructions.ResetToInstructionsMainScreen();
@@ -238,21 +237,21 @@ const MainVidsInstructionsPauseUnpause = function () {
     global.pauseWrapper.classList.add("active");
     instructions.allVidsInstructions[
       instructions.currentInstructionVid +
-        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS1
     ].pause();
     instructions.allVidsInstructionsMobileP[
       instructions.currentInstructionVid +
-        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS1
     ].pause();
   } else {
     global.pauseWrapper.classList.remove("active");
     instructions.allVidsInstructions[
       instructions.currentInstructionVid +
-        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS1
     ].play();
     instructions.allVidsInstructionsMobileP[
       instructions.currentInstructionVid +
-        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS
+        global.dropdownIndex * NO_OF_INSTRUCTION_VIDS1
     ].play();
   }
 };
